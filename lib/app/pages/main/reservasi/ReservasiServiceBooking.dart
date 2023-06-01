@@ -152,7 +152,7 @@ class _ReservasiServiceBookingState extends State<ReservasiServiceBooking> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 13),
                       child: Text(
-                        (dateTime.year == 2022)
+                        (dateTime.year < 2023)
                             ? "Pilih Tanggal/Select Date"
                             : '${dateTime.year}-${dateTime.month}-${dateTime.day}',
                         style: const TextStyle(fontSize: 16),

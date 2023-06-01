@@ -24,6 +24,11 @@ class LoginUserController {
           if (value.body['success'] == true) {
             // simpan ke sharedPreferences
             prefs.setString('uuid', '${value.body['data']['user']['uuid']}');
+            prefs.setString('nama', '${value.body['data']['user']['nama']}');
+            prefs.setString('no_hp', '${value.body['data']['user']['no_hp']}');
+            prefs.setString('email', '${value.body['data']['user']['email']}');
+            prefs.setString(
+                'role_id', '${value.body['data']['user']['role_id']}');
             prefs.setString('token', '${value.body['data']['token']}');
             // cek role user apakah customer atau Service Advisor
             SnackBarWidget().snackBarSuccess("${value.body['message']}");

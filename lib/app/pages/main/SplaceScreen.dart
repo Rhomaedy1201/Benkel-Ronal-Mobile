@@ -22,7 +22,7 @@ class _SplaceScreenState extends State<SplaceScreen> {
 
   void _cekDataUser() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-
+    print(prefs.getString('uuid'));
     Timer(Duration(seconds: 3), () {
       if (prefs.getString('uuid') != null) {
         Get.offAll(HomePage());
