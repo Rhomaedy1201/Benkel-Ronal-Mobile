@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "592618747938",
+    "project_id": "angelic-goods-367102",
+    "storage_bucket": "angelic-goods-367102.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:592618747938:android:33f45e5f3db7f93122327b",
+        "android_client_info": {
+          "package_name": "com.example.pemesanan_service_mobil"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "592618747938-h1s2si1hvg4qmcj5uqsfgc5lbps6qa4r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.pemesanan_service_mobil",
+            "certificate_hash": "dfa9be0e16a83379d6ca1041f1ae7270fd6ecb15"
+          }
+        },
+        {
+          "client_id": "592618747938-qutihk1uoj6jbnjnq72r10dl7g05ek2i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAW920R1g4WzBq2tZcazlo8SvRfd_GI5Jo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "592618747938-qutihk1uoj6jbnjnq72r10dl7g05ek2i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
