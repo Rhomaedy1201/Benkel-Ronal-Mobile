@@ -113,7 +113,7 @@ class _AboutPageState extends State<AboutPage> {
                 SizedBox(width: 15),
                 Expanded(
                   child: Text(
-                    "085155467892",
+                    "082155467892",
                     style: TextStyle(
                       fontSize: 17,
                       fontWeight: FontWeight.w500,
