@@ -1,11 +1,18 @@
-import 'package:flutter/material.dart';
+import 'dart:async';
 
-class AboutPage extends StatelessWidget {
+import 'package:flutter/material.dart';
+import 'package:pemesanan_service_mobil/app/utils/forMap.dart';
+
+class AboutPage extends StatefulWidget {
   const AboutPage({super.key});
 
   @override
+  State<AboutPage> createState() => _AboutPageState();
+}
+
+class _AboutPageState extends State<AboutPage> {
+  @override
   Widget build(BuildContext context) {
-    final bodyWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -27,12 +34,28 @@ class AboutPage extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
         child: Column(
           children: [
-            Container(
-              width: double.infinity,
-              height: 210,
-              color: Colors.grey,
-              child: Center(
-                child: Text("Maps"),
+            InkWell(
+              onTap: () {
+                MapUtils.openMap(-7.941028, 113.809225);
+              },
+              child: Container(
+                width: double.infinity,
+                height: 200,
+                decoration: const BoxDecoration(
+                  color: Colors.grey,
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                  image: DecorationImage(
+                    image: AssetImage("assets/images/bg_map.png"),
+                    fit: BoxFit.cover,
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color(0xFFAAD0EE),
+                      blurRadius: 7,
+                      offset: Offset(0, 0), // Shadow position
+                    ),
+                  ],
+                ),
               ),
             ),
             Column(
@@ -121,7 +144,7 @@ class AboutPage extends StatelessWidget {
                   ),
                 ),
               ],
-            )
+            ),
           ],
         ),
       ),

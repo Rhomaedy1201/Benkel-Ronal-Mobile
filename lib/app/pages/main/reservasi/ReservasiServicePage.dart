@@ -115,35 +115,11 @@ class _ReservasiServicePageState extends State<ReservasiServicePage> {
                       ),
                     ),
                     const SizedBox(height: 10),
-                    // Tipe Mobil
-                    SizedBox(
-                      height: 55,
-                      child: DropdownButtonFormField(
-                        decoration: InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Color(0xFFACACAC),
-                              width: 1,
-                            ),
-                            borderRadius: BorderRadius.circular(0),
-                          ),
-                          border: OutlineInputBorder(),
-                          filled: true,
-                          fillColor: Colors.white,
-                        ),
-                        value: value_model_mobil,
-                        hint: const Text("Pilih Tipe Mobil"),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            value_model_mobil = newValue!;
-                          });
-                        },
-                        items: model_mobil.map((String items) {
-                          return DropdownMenuItem(
-                            value: items,
-                            child: Text(items),
-                          );
-                        }).toList(),
+                    const TextField(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: 'Tipe Mobil',
+                        labelText: 'Tipe Mobil',
                       ),
                     ),
                     const SizedBox(height: 10),
@@ -161,7 +137,7 @@ class _ReservasiServicePageState extends State<ReservasiServicePage> {
                         isDropdownHideUnderline: true, // optional
                         isFormValidator: false, // optional
                         startYear: 1600, // optional
-                        endYear: 2024, // optional
+                        endYear: 2050, // optional
                         width: 10, // optional
                         showDay: false,
                         showMonth: false,
@@ -171,35 +147,11 @@ class _ReservasiServicePageState extends State<ReservasiServicePage> {
                       ),
                     ),
                     const SizedBox(height: 10),
-                    // Warna
-                    SizedBox(
-                      height: 55,
-                      child: DropdownButtonFormField(
-                        decoration: InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Color(0xFFACACAC),
-                              width: 1,
-                            ),
-                            borderRadius: BorderRadius.circular(0),
-                          ),
-                          border: OutlineInputBorder(),
-                          filled: true,
-                          fillColor: Colors.white,
-                        ),
-                        value: value_model_mobil,
-                        hint: const Text("Warna"),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            value_model_mobil = newValue!;
-                          });
-                        },
-                        items: model_mobil.map((String items) {
-                          return DropdownMenuItem(
-                            value: items,
-                            child: Text(items),
-                          );
-                        }).toList(),
+                    const TextField(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: 'Warna',
+                        labelText: 'Warna',
                       ),
                     ),
                     const SizedBox(height: 10),
@@ -207,13 +159,15 @@ class _ReservasiServicePageState extends State<ReservasiServicePage> {
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         hintText: 'Nomer Polisi',
+                        labelText: 'Nomer Polisi',
                       ),
                     ),
                     const SizedBox(height: 10),
                     const TextField(
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        hintText: 'Nomer Polisi',
+                        hintText: 'Nomer Identitas Kendaraan',
+                        labelText: 'Nomer Identitas Kendaraan',
                       ),
                     ),
                     const SizedBox(height: 10),
