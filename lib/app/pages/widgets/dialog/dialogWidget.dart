@@ -8,6 +8,7 @@ import 'package:pemesanan_service_mobil/app/pages/widgets/snackBar/SnackbarWidge
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DialogWidget {
+  // Dilog logout and remove SharedPreferences
   void dialogLogout(BuildContext context) {
     SharedPreferences prefs;
     Dialogs.materialDialog(
