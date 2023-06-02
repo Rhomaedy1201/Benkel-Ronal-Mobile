@@ -15,6 +15,7 @@ class RegisterUserProvider extends GetConnect {
       'password': password,
       'role_id': role_id,
     });
-    return post(url, body);
+    final header = {"Accept": "application/json"};
+    return post(url, body, headers: header);
   }
 }

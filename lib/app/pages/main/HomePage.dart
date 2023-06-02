@@ -13,6 +13,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String nama = '';
+  String? token = '';
   late SharedPreferences spref;
   @override
   void initState() {
@@ -23,10 +24,13 @@ class _HomePageState extends State<HomePage> {
   Future init() async {
     spref = await SharedPreferences.getInstance();
     String? nama = spref.getString('nama');
+    String? token = spref.getString('token');
     if (nama == null) return;
     setState(() {
       this.nama = nama;
+      this.token = token;
       print(this.nama);
+      print("Token : ${this.token}");
     });
   }
 
@@ -149,8 +153,8 @@ class _HomePageState extends State<HomePage> {
                           ],
                         ),
                         Container(
-                          width: mediaQueryHeight / 6,
-                          height: 85,
+                          width: mediaQueryHeight / 8,
+                          height: 80,
                           decoration: const BoxDecoration(
                             image: DecorationImage(
                               image: ExactAssetImage(

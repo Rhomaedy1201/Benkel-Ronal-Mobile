@@ -1,7 +1,9 @@
 import 'package:datepicker_dropdown/datepicker_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pemesanan_service_mobil/app/controllers/tambahKendaraanController.dart';
 import 'package:pemesanan_service_mobil/app/pages/main/reservasi/InformasiDataMobilPage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ReservasiServicePage extends StatefulWidget {
   const ReservasiServicePage({super.key});
@@ -28,9 +30,19 @@ class _ReservasiServicePageState extends State<ReservasiServicePage> {
     "Silver",
     "Putih",
   ];
-  String? value_model_mobil = null;
-  String? value_type_mobil = null;
-  String? value_warna_mobil = null;
+
+  TextEditingController merkMobil = TextEditingController(text: '');
+  String? modelMobil = null;
+  TextEditingController tipeMobil = TextEditingController(text: '');
+  String? thnProduksi = null;
+  TextEditingController warna = TextEditingController(text: '');
+  TextEditingController nomorPolisi = TextEditingController(text: '');
+  TextEditingController nomorIdentitas = TextEditingController(text: '');
+  String? tglStnk = null;
+  String? blnStnk = null;
+  String? thnStnk = null;
+  String? fullStnk = null;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,7 +94,16 @@ class _ReservasiServicePageState extends State<ReservasiServicePage> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 10),
+                    TextField(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: 'Merk Mobil',
+                        labelText: 'Merk Mobil',
+                      ),
+                      controller: merkMobil,
+                    ),
+                    const SizedBox(height: 10),
                     // Model Mobil
                     SizedBox(
                       height: 55,
@@ -99,11 +120,11 @@ class _ReservasiServicePageState extends State<ReservasiServicePage> {
                           filled: true,
                           fillColor: Colors.white,
                         ),
-                        value: value_model_mobil,
+                        value: modelMobil,
                         hint: const Text("Pilih Model Mobil"),
                         onChanged: (String? newValue) {
                           setState(() {
-                            value_model_mobil = newValue!;
+                            modelMobil = newValue!;
                           });
                         },
                         items: model_mobil.map((String items) {
@@ -115,12 +136,13 @@ class _ReservasiServicePageState extends State<ReservasiServicePage> {
                       ),
                     ),
                     const SizedBox(height: 10),
-                    const TextField(
-                      decoration: InputDecoration(
+                    TextField(
+                      decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         hintText: 'Tipe Mobil',
                         labelText: 'Tipe Mobil',
                       ),
+                      controller: tipeMobil,
                     ),
                     const SizedBox(height: 10),
                     // Tahun Produksi
@@ -141,38 +163,44 @@ class _ReservasiServicePageState extends State<ReservasiServicePage> {
                         width: 10, // optional
                         showDay: false,
                         showMonth: false,
-                        onChangedYear: (value) =>
-                            print('onChangedYear: $value'),
+                        onChangedYear: (value) {
+                          setState(() {
+                            thnProduksi = value;
+                          });
+                        },
                         hintYear: "Tahun Produksi",
                       ),
                     ),
                     const SizedBox(height: 10),
-                    const TextField(
-                      decoration: InputDecoration(
+                    TextField(
+                      decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         hintText: 'Warna',
                         labelText: 'Warna',
                       ),
+                      controller: warna,
                     ),
                     const SizedBox(height: 10),
-                    const TextField(
-                      decoration: InputDecoration(
+                    TextField(
+                      decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         hintText: 'Nomer Polisi',
                         labelText: 'Nomer Polisi',
                       ),
+                      controller: nomorPolisi,
                     ),
                     const SizedBox(height: 10),
-                    const TextField(
-                      decoration: InputDecoration(
+                    TextField(
+                      decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         hintText: 'Nomer Identitas Kendaraan',
                         labelText: 'Nomer Identitas Kendaraan',
                       ),
+                      controller: nomorIdentitas,
                     ),
                     const SizedBox(height: 10),
                     const Text(
-                      "Isi nomer kendaraan untuk ...",
+                      "Isi nomer vin/krangka kendaraan untuk cek riwayat service.",
                       style: TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.w500,
@@ -208,9 +236,21 @@ class _ReservasiServicePageState extends State<ReservasiServicePage> {
                   dayFlex: 2,
                   monthFlex: 2,
                   yearFlex: 2,
-                  onChangedDay: (value) => print('onChangedDay: $value'),
-                  onChangedMonth: (value) => print('onChangedMonth: $value'),
-                  onChangedYear: (value) => print('onChangedYear: $value'),
+                  onChangedDay: (value) {
+                    setState(() {
+                      tglStnk = value;
+                    });
+                  },
+                  onChangedMonth: (value) {
+                    setState(() {
+                      blnStnk = value;
+                    });
+                  },
+                  onChangedYear: (value) {
+                    setState(() {
+                      thnStnk = value;
+                    });
+                  },
                 ),
 
                 // Button
@@ -222,8 +262,31 @@ class _ReservasiServicePageState extends State<ReservasiServicePage> {
             child: SizedBox(
               height: 45,
               child: ElevatedButton(
-                onPressed: () {
-                  Get.to(InformasiDataMobilPage());
+                onPressed: () async {
+                  SharedPreferences spref =
+                      await SharedPreferences.getInstance();
+                  String? uuid = spref.getString("uuid");
+                  print(merkMobil.text);
+                  print(modelMobil);
+                  print(tipeMobil.text);
+                  print(thnProduksi);
+                  print(warna.text);
+                  print(nomorPolisi.text);
+                  print(nomorIdentitas.text);
+
+                  print("$thnStnk-$blnStnk-$tglStnk");
+                  TambahKendaraanController().addCar(
+                    merkMobil.text,
+                    1,
+                    nomorIdentitas.text,
+                    uuid!,
+                    tipeMobil.text,
+                    int.parse(thnProduksi!),
+                    warna.text,
+                    nomorPolisi.text,
+                    nomorIdentitas.text,
+                    "$thnStnk-$blnStnk-$tglStnk",
+                  );
                 },
                 child: Text('Tambahkan Kendaraan'),
                 style: ButtonStyle(

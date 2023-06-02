@@ -5,7 +5,7 @@ class SnackBarWidget {
     Get.snackbar(
       "Error",
       msg,
-      duration: const Duration(seconds: 2),
+      duration: const Duration(seconds: 3),
     );
   }
 
