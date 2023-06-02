@@ -40,7 +40,7 @@ class _HomePageState extends State<HomePage> {
         itemCount: 1,
         itemBuilder: (context, index) {
           return Container(
-            margin: EdgeInsets.symmetric(horizontal: 30),
+            margin: EdgeInsets.symmetric(horizontal: 25),
             child: Column(
               children: [
                 const SizedBox(height: 15),
@@ -132,7 +132,7 @@ class _HomePageState extends State<HomePage> {
                             Text(
                               "Bengkel Ronal".toUpperCase(),
                               style: const TextStyle(
-                                fontSize: 20,
+                                fontSize: 18,
                                 fontWeight: FontWeight.w800,
                                 color: Colors.white,
                               ),
@@ -149,7 +149,7 @@ class _HomePageState extends State<HomePage> {
                           ],
                         ),
                         Container(
-                          width: 130,
+                          width: 120,
                           height: 85,
                           decoration: const BoxDecoration(
                             image: DecorationImage(
@@ -188,8 +188,8 @@ class _HomePageState extends State<HomePage> {
                   child: GridView.count(
                     primary: false,
                     padding: const EdgeInsets.all(30),
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 5,
+                    crossAxisSpacing: 20,
+                    mainAxisSpacing: 20,
                     crossAxisCount: 2,
                     children: <Widget>[
                       CarService().about,
