@@ -2,18 +2,35 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
+import 'package:pemesanan_service_mobil/app/controllers/informasiDataMobilController.dart';
+import 'package:pemesanan_service_mobil/app/models/informasiDataMobilModel.dart';
 import 'package:pemesanan_service_mobil/app/pages/main/reservasi/ReservasiServiceBooking.dart';
 
-class InformasiDataMobilPage extends StatelessWidget {
+class InformasiDataMobilPage extends StatefulWidget {
   const InformasiDataMobilPage({super.key});
 
   @override
+  State<InformasiDataMobilPage> createState() => _InformasiDataMobilPageState();
+}
+
+class _InformasiDataMobilPageState extends State<InformasiDataMobilPage> {
+  InformasiDataMobilController informasiMobil =
+      Get.put(InformasiDataMobilController());
+  @override
+  void initState() {
+    super.initState();
+    getDataInformasiKendaraan();
+  }
+
+  List<InformasiDataMobilModel> list_kendaraan = [];
+  Future<void> getDataInformasiKendaraan() async {
+    setState(() {});
+    list_kendaraan = await informasiMobil.getInformasi();
+    setState(() {});
+  }
+
+  @override
   Widget build(BuildContext context) {
-    List<String> informasi_kendaraan = [
-      "XPander",
-      "Toyota",
-      "Dayhatsu",
-    ];
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -38,7 +55,7 @@ class InformasiDataMobilPage extends StatelessWidget {
             Expanded(
               child: ListView.builder(
                   shrinkWrap: true,
-                  itemCount: informasi_kendaraan.length,
+                  itemCount: list_kendaraan.length,
                   itemBuilder: (BuildContext ctx, index) {
                     return Column(
                       children: [
@@ -56,14 +73,14 @@ class InformasiDataMobilPage extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      informasi_kendaraan[index],
+                                      list_kendaraan[index].merk!,
                                       style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w600,
                                       ),
                                     ),
                                     Text(
-                                      "XPander Cross 1.5L Plus(4x2)",
+                                      list_kendaraan[index].tipeMobil!,
                                       style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w600,
@@ -96,7 +113,7 @@ class InformasiDataMobilPage extends StatelessWidget {
                                           ),
                                         ),
                                         Text(
-                                          "KT 1523 RE",
+                                          list_kendaraan[index].nopol!,
                                           style: TextStyle(
                                             fontSize: 16,
                                             fontWeight: FontWeight.w600,
@@ -108,7 +125,7 @@ class InformasiDataMobilPage extends StatelessWidget {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text(
+                                        const Text(
                                           "Warna",
                                           style: TextStyle(
                                             fontSize: 16,
@@ -117,8 +134,8 @@ class InformasiDataMobilPage extends StatelessWidget {
                                           ),
                                         ),
                                         Text(
-                                          "Quartz White Peart",
-                                          style: TextStyle(
+                                          list_kendaraan[index].warna!,
+                                          style: const TextStyle(
                                             fontSize: 16,
                                             fontWeight: FontWeight.w600,
                                           ),
@@ -143,7 +160,7 @@ class InformasiDataMobilPage extends StatelessWidget {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text(
+                                        const Text(
                                           "Nomor Rangka",
                                           style: TextStyle(
                                             fontSize: 16,
@@ -152,8 +169,8 @@ class InformasiDataMobilPage extends StatelessWidget {
                                           ),
                                         ),
                                         Text(
-                                          "MK2HHD87SNJAAAS",
-                                          style: TextStyle(
+                                          list_kendaraan[index].nomorRangka!,
+                                          style: const TextStyle(
                                             fontSize: 16,
                                             fontWeight: FontWeight.w600,
                                           ),
@@ -164,7 +181,7 @@ class InformasiDataMobilPage extends StatelessWidget {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text(
+                                        const Text(
                                           "Tahun Produksi",
                                           style: TextStyle(
                                             fontSize: 16,
@@ -173,8 +190,8 @@ class InformasiDataMobilPage extends StatelessWidget {
                                           ),
                                         ),
                                         Text(
-                                          "2002",
-                                          style: TextStyle(
+                                          list_kendaraan[index].tahunProduksi!,
+                                          style: const TextStyle(
                                             fontSize: 16,
                                             fontWeight: FontWeight.w600,
                                           ),
@@ -199,7 +216,7 @@ class InformasiDataMobilPage extends StatelessWidget {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text(
+                                        const Text(
                                           "Berlaku Sampai",
                                           style: TextStyle(
                                             fontSize: 16,
@@ -208,8 +225,14 @@ class InformasiDataMobilPage extends StatelessWidget {
                                           ),
                                         ),
                                         Text(
-                                          "-",
-                                          style: TextStyle(
+                                          (list_kendaraan[index].masaStnk ==
+                                                      '' ||
+                                                  list_kendaraan[index]
+                                                          .masaStnk ==
+                                                      null)
+                                              ? "-"
+                                              : list_kendaraan[index].masaStnk!,
+                                          style: const TextStyle(
                                             fontSize: 16,
                                             fontWeight: FontWeight.w600,
                                           ),

@@ -20,15 +20,15 @@ class TambahKendaraanController {
     String masa_stnk,
   ) {
     if (merk != '' &&
-        model_id != '' &&
+        model_id != null &&
         nomor_rangka != '' &&
-        user_id != '' &&
+        user_id != null &&
         tipe_mobil != '' &&
-        tahun_produksi != '' &&
+        tahun_produksi != 0 &&
         warna != '' &&
         nopol != '' &&
         nomor_stnk != '' &&
-        masa_stnk != '') {
+        masa_stnk != null) {
       tambah_kendaraan.add(
         TambahKendaraanModel(
           merk: merk,

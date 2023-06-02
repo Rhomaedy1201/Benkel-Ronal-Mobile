@@ -1,10 +1,14 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:datepicker_dropdown/datepicker_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pemesanan_service_mobil/app/Providers/mobilProvider.dart';
 import 'package:pemesanan_service_mobil/app/controllers/tambahKendaraanController.dart';
 import 'package:pemesanan_service_mobil/app/pages/main/reservasi/InformasiDataMobilPage.dart';
+import 'package:pemesanan_service_mobil/app/utils/base_url.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 class ReservasiServicePage extends StatefulWidget {
   const ReservasiServicePage({super.key});
@@ -35,7 +39,7 @@ class _ReservasiServicePageState extends State<ReservasiServicePage> {
   TextEditingController merkMobil = TextEditingController(text: '');
   String? modelMobil = null;
   TextEditingController tipeMobil = TextEditingController(text: '');
-  String? thnProduksi = null;
+  String thnProduksi = "0";
   TextEditingController warna = TextEditingController(text: '');
   TextEditingController nomorPolisi = TextEditingController(text: '');
   TextEditingController nomorIdentitas = TextEditingController(text: '');
@@ -43,6 +47,33 @@ class _ReservasiServicePageState extends State<ReservasiServicePage> {
   String? blnStnk = null;
   String? thnStnk = null;
   String? fullStnk = null;
+
+  @override
+  void initState() {
+    super.initState();
+    getMobil();
+  }
+
+  List<dynamic> result = [];
+  int? idModel;
+
+  void getMobil() async {
+    var response = await http.get(Uri.parse("$baseUrl/model-mobil"));
+    try {
+      if (response.statusCode == 200) {
+        var data = json.decode(response.body)['data'];
+        setState(() {
+          result = data;
+        });
+
+        print(result);
+      } else {
+        log(response.statusCode.toString() + "Cek");
+      }
+    } catch (e) {
+      log(e.toString());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -123,15 +154,15 @@ class _ReservasiServicePageState extends State<ReservasiServicePage> {
                         ),
                         value: modelMobil,
                         hint: const Text("Pilih Model Mobil"),
-                        onChanged: (String? newValue) {
+                        onChanged: (value) {
                           setState(() {
-                            modelMobil = newValue!;
+                            modelMobil = value as String;
                           });
                         },
-                        items: model_mobil.map((String items) {
+                        items: result.map((item) {
                           return DropdownMenuItem(
-                            value: items,
-                            child: Text(items),
+                            child: Text(item['keterangan']),
+                            value: item['keterangan'],
                           );
                         }).toList(),
                       ),
@@ -166,7 +197,7 @@ class _ReservasiServicePageState extends State<ReservasiServicePage> {
                         showMonth: false,
                         onChangedYear: (value) {
                           setState(() {
-                            thnProduksi = value;
+                            thnProduksi = value as String;
                           });
                         },
                         hintYear: "Tahun Produksi",
@@ -267,22 +298,13 @@ class _ReservasiServicePageState extends State<ReservasiServicePage> {
                   SharedPreferences spref =
                       await SharedPreferences.getInstance();
                   String? uuid = spref.getString("uuid");
-                  print(merkMobil.text);
-                  print(modelMobil);
-                  print(tipeMobil.text);
-                  print(thnProduksi);
-                  print(warna.text);
-                  print(nomorPolisi.text);
-                  print(nomorIdentitas.text);
-
-                  print("$thnStnk-$blnStnk-$tglStnk");
                   TambahKendaraanController().addCar(
                     merkMobil.text,
                     1,
                     nomorIdentitas.text,
                     uuid!,
                     tipeMobil.text,
-                    int.parse(thnProduksi!),
+                    int.parse(thnProduksi),
                     warna.text,
                     nomorPolisi.text,
                     nomorIdentitas.text,
@@ -297,6 +319,12 @@ class _ReservasiServicePageState extends State<ReservasiServicePage> {
               ),
             ),
           ),
+          InkWell(
+            onTap: () {
+              Get.to(InformasiDataMobilPage());
+            },
+            child: Center(child: Text("lihat Inforasi Kendaraan")),
+          )
         ],
       ),
     );
