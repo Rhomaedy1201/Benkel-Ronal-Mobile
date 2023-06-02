@@ -21,7 +21,7 @@ class LoginUserController {
         );
         LoginUserProvider().loginUser(email, password).then((value) {
           // validasi response berhasil apa tidak
-          if (value.body['success'] == true) {
+          if (value.statusCode == 200) {
             // simpan ke sharedPreferences
             prefs.setString('uuid', '${value.body['data']['user']['uuid']}');
             prefs.setString('nama', '${value.body['data']['user']['nama']}');
@@ -39,7 +39,8 @@ class LoginUserController {
               SnackBarWidget().snackBarSuccess("SERVICE ADVISOR");
             }
           } else {
-            SnackBarWidget().snackBarSuccess("${value.body['message']}");
+            // print(value.body['message']);
+            SnackBarWidget().snackBarError("${value.body['message']}");
           }
           print(value.body);
         });

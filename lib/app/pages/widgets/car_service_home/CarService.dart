@@ -11,33 +11,34 @@ import 'package:pemesanan_service_mobil/app/utils/go_to_whatsapp.dart';
 class CarService extends StatelessWidget {
   CarService({super.key});
 
-  final about = InkWell(
-    onTap: () => {
-      Get.to(const AboutPage(), transition: Transition.circularReveal),
-    },
-    child: Column(
-      children: [
-        Container(
-          width: 100,
-          height: 100,
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(15)),
-            color: Color(0xFFE4E4E4),
-          ),
-          padding: EdgeInsets.all(7),
-          child: Lottie.asset("assets/lottie/about.json"),
+  final about = GestureDetector(
+      onTap: () => {
+            Get.to(const AboutPage(), transition: Transition.circularReveal),
+          },
+      child: Container(
+        child: Column(
+          children: [
+            Container(
+              width: 90,
+              height: 90,
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(15)),
+                color: Color(0xFFE4E4E4),
+              ),
+              padding: EdgeInsets.all(5),
+              child: Lottie.asset("assets/lottie/about.json"),
+            ),
+            const SizedBox(height: 1),
+            const Text(
+              "About",
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ],
         ),
-        const SizedBox(height: 5),
-        const Text(
-          "About",
-          style: TextStyle(
-            fontSize: 17,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-      ],
-    ),
-  );
+      ));
 
   final reservasi = InkWell(
     onTap: () => {
@@ -49,8 +50,8 @@ class CarService extends StatelessWidget {
     child: Column(
       children: [
         Container(
-          width: 100,
-          height: 100,
+          width: 90,
+          height: 90,
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(15)),
             color: Color(0xFFE4E4E4),
@@ -62,7 +63,7 @@ class CarService extends StatelessWidget {
         const Text(
           "Reservasi",
           style: TextStyle(
-            fontSize: 17,
+            fontSize: 13,
             fontWeight: FontWeight.w500,
           ),
         ),
@@ -80,8 +81,8 @@ class CarService extends StatelessWidget {
     child: Column(
       children: [
         Container(
-          width: 100,
-          height: 100,
+          width: 90,
+          height: 90,
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(15)),
             color: Color(0xFFE4E4E4),
@@ -93,7 +94,7 @@ class CarService extends StatelessWidget {
         const Text(
           "Histori Service",
           style: TextStyle(
-            fontSize: 17,
+            fontSize: 13,
             fontWeight: FontWeight.w500,
           ),
         ),
@@ -107,8 +108,8 @@ class CarService extends StatelessWidget {
     child: Column(
       children: [
         Container(
-          width: 100,
-          height: 100,
+          width: 90,
+          height: 90,
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(15)),
             color: Color(0xFFE4E4E4),
@@ -118,9 +119,9 @@ class CarService extends StatelessWidget {
         ),
         const SizedBox(height: 5),
         const Text(
-          "Whatshapp",
+          "WhatsApp",
           style: TextStyle(
-            fontSize: 17,
+            fontSize: 13,
             fontWeight: FontWeight.w500,
           ),
         ),

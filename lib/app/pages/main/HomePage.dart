@@ -149,7 +149,7 @@ class _HomePageState extends State<HomePage> {
                           ],
                         ),
                         Container(
-                          width: 120,
+                          width: mediaQueryHeight / 6,
                           height: 85,
                           decoration: const BoxDecoration(
                             image: DecorationImage(

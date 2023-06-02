@@ -38,8 +38,9 @@ class RegisterUserController {
         RegisterUserProvider()
             .postData(nama, "+62$no_hp", email, password, "1")
             .then((value) {
-          if (value.body['success'] == true) {
-            snackBarSuccess("Berhasil Membuat akun");
+          if (value.statusCode == 200) {
+            snackBarSuccess(
+                "Berhasil Membuat akun. Verifikasi akun anda sekarang");
             Get.offAll(LoginPage());
           }
           print(value.body);
