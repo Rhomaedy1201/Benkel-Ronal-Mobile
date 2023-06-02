@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pemesanan_service_mobil/app/controllers/KendaraanController.dart';
 import 'package:pemesanan_service_mobil/app/pages/main/history/ResultSearchHistoryService.dart';
 
 class HistoryServicePage extends StatelessWidget {
@@ -7,6 +8,7 @@ class HistoryServicePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController _no_rangka = TextEditingController(text: '');
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -29,10 +31,11 @@ class HistoryServicePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const TextField(
+            TextField(
+              controller: _no_rangka,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
-                hintText: 'Input No Rangka Kwndaraan',
+                hintText: 'Input No Rangka Kendaraan',
               ),
             ),
             const SizedBox(height: 40),
@@ -41,7 +44,8 @@ class HistoryServicePage extends StatelessWidget {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                  Get.to(ResultSearchHistoryService());
+                  print(_no_rangka.text);
+                  KendaraanController().getRangka(_no_rangka.text);
                 },
                 child: Text('Cari'),
                 style: ButtonStyle(

@@ -1,16 +1,46 @@
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:pemesanan_service_mobil/app/controllers/ServiceController.dart';
+import 'package:pemesanan_service_mobil/app/models/Service.dart';
 
 class ResultSearchHistoryService extends StatefulWidget {
-  const ResultSearchHistoryService({super.key});
+  const ResultSearchHistoryService(
+      {super.key,
+      required String this.id_kendaraan,
+      required String this.no_rangka,
+      required String this.date,
+      required String this.tipe_mobil,
+      required String this.warna});
 
   @override
   State<ResultSearchHistoryService> createState() =>
       _ResultSearchHistoryServiceState();
+  final String no_rangka;
+  final String id_kendaraan;
+  final String date;
+  final String tipe_mobil;
+  final String warna;
 }
 
 class _ResultSearchHistoryServiceState
     extends State<ResultSearchHistoryService> {
+  ServiceController serviceController = Get.put(ServiceController());
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getService();
+    print("Daftar Service " + daftar_service.toString());
+  }
+
+  List<Service> daftar_service = [];
+  Future<void> getService() async {
+    setState(() {});
+    daftar_service =
+        await serviceController.getServiceData(widget.id_kendaraan);
+    setState(() {});
+  }
+
   Widget build(BuildContext context) {
     List<String> informasi_kendaraan = [
       "XPander",
@@ -55,7 +85,7 @@ class _ResultSearchHistoryServiceState
         child: ListView(
           children: [
             Text(
-              "Xpander".toUpperCase(),
+              widget.tipe_mobil,
               style: const TextStyle(
                 fontSize: 15,
                 fontWeight: FontWeight.w500,
@@ -64,16 +94,16 @@ class _ResultSearchHistoryServiceState
               overflow: TextOverflow.ellipsis,
             ),
             const SizedBox(height: 4),
-            const Text(
-              "2022",
+            Text(
+              widget.date,
               style: TextStyle(
                 fontSize: 15,
                 fontWeight: FontWeight.w500,
               ),
             ),
             const SizedBox(height: 20),
-            const Text(
-              "MHKV1AA2JAK029547",
+            Text(
+              widget.no_rangka,
               style: TextStyle(
                 fontSize: 15,
                 fontWeight: FontWeight.w500,
@@ -81,7 +111,7 @@ class _ResultSearchHistoryServiceState
             ),
             const SizedBox(height: 4),
             Text(
-              "HITAM".toUpperCase(),
+              widget.warna.toUpperCase(),
               style: const TextStyle(
                 fontSize: 15,
                 fontWeight: FontWeight.w500,
@@ -91,12 +121,12 @@ class _ResultSearchHistoryServiceState
             ListView.builder(
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
-              itemCount: informasi_kendaraan.length,
+              itemCount: daftar_service.length,
               itemBuilder: (BuildContext ctx, index) {
                 return Column(
                   children: [
                     Container(
-                      width: double.infinity,
+                      width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.grey),
                       ),
@@ -106,7 +136,7 @@ class _ResultSearchHistoryServiceState
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "14 September 2022".toUpperCase(),
+                              daftar_service[index].tanggal!.toUpperCase(),
                               style: const TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w700,
@@ -116,131 +146,110 @@ class _ResultSearchHistoryServiceState
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      width: 150,
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "Service Type".toUpperCase(),
-                                            style: const TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                          const SizedBox(height: 4),
-                                          Text(
-                                            "Odometer".toUpperCase(),
-                                            style: const TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                          const SizedBox(height: 4),
-                                          Text(
-                                            "Type".toUpperCase(),
-                                            style: const TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                          const SizedBox(height: 4),
-                                          Text(
-                                            "Service Advisor".toUpperCase(),
-                                            style: const TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                        ],
+                                Container(
+                                  width:
+                                      MediaQuery.of(context).size.width / 1.3,
+                                  height:
+                                      MediaQuery.of(context).size.height / 33,
+                                  child: GridView(
+                                    gridDelegate:
+                                        SliverGridDelegateWithFixedCrossAxisCount(
+                                            crossAxisCount: 2),
+                                    children: [
+                                      Text(
+                                        "Service Type: ".toUpperCase(),
+                                        style: const TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w500,
+                                        ),
                                       ),
-                                    ),
-                                    Container(
-                                      width: 150,
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "1000 km".toUpperCase(),
-                                            style: const TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                          const SizedBox(height: 4),
-                                          Text(
-                                            "1402 km".toUpperCase(),
-                                            style: const TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                          const SizedBox(height: 4),
-                                          Text(
-                                            "Gold".toUpperCase(),
-                                            style: const TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                          const SizedBox(height: 4),
-                                          Text(
-                                            "Kely".toUpperCase(),
-                                            style: const TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                        ],
+                                      Text(
+                                        daftar_service[index]
+                                            .tipe_service!
+                                            .toUpperCase(),
+                                        style: const TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w500,
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
-                                const SizedBox(height: 4),
+                                Container(
+                                  width:
+                                      MediaQuery.of(context).size.width / 1.3,
+                                  height:
+                                      MediaQuery.of(context).size.height / 33,
+                                  child: GridView(
+                                    gridDelegate:
+                                        SliverGridDelegateWithFixedCrossAxisCount(
+                                            crossAxisCount: 2),
+                                    children: [
+                                      Text(
+                                        "Odometer ".toUpperCase(),
+                                        style: const TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                      Text(
+                                        daftar_service[index]
+                                            .odometer!
+                                            .toUpperCase(),
+                                        style: const TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  width:
+                                      MediaQuery.of(context).size.width / 1.3,
+                                  height:
+                                      MediaQuery.of(context).size.height / 33,
+                                  child: GridView(
+                                    gridDelegate:
+                                        SliverGridDelegateWithFixedCrossAxisCount(
+                                            crossAxisCount: 2),
+                                    children: [
+                                      Text(
+                                        "Service advisor ".toUpperCase(),
+                                        style: const TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                      Text(
+                                        daftar_service[index]
+                                            .service_advisor!
+                                            .toUpperCase(),
+                                        style: const TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(height: 8),
                                 Text(
-                                  "Sparepart List ".toUpperCase(),
+                                  "Sparepart Pengganti \n${daftar_service[index].part_pengganti!}"
+                                      .toUpperCase(),
                                   style: const TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
                                 const SizedBox(height: 10),
-                                ListView.builder(
-                                  itemCount: sparepart_list.length,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  controller: _controller,
-                                  shrinkWrap: true,
-                                  itemBuilder: (context, index) {
-                                    return (sparepart_list[index]['data'] ==
-                                            null)
-                                        ? Text(
-                                            " - ",
-                                            style: const TextStyle(
-                                              fontSize: 13,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          )
-                                        : Text(
-                                            " - ${sparepart_list[index]['data']} ",
-                                            style: const TextStyle(
-                                              fontSize: 13,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          );
-                                  },
-                                ),
                                 const SizedBox(height: 10),
                                 Container(
                                   width: double.infinity,
                                   padding: const EdgeInsets.all(10),
                                   color: const Color(0xFFB9B9B9),
                                   child: Text(
-                                    "Note - ".toUpperCase(),
+                                    "Detail \n${daftar_service[index].detail!}",
                                     style: const TextStyle(
                                       fontSize: 13,
                                       color: Color(0xFFE61F11),
