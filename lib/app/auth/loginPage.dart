@@ -171,7 +171,7 @@ class _LoginPageState extends State<LoginPage> {
                     Get.to(HomeServiceAdvisor());
                   },
                   child: const Text(
-                    'Service Advisor',
+                    'Ini Tampilan Service Advisor "KLIK" ',
                     style: TextStyle(
                       color: Color.fromARGB(255, 193, 0, 223),
                       fontSize: 14,
