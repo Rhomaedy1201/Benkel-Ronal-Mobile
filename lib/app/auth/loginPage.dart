@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pemesanan_service_mobil/app/auth/registerPage.dart';
 import 'package:pemesanan_service_mobil/app/controllers/LoginUserController.dart';
+import 'package:pemesanan_service_mobil/app/pages/main/HomeServiceAdvisor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
@@ -163,6 +164,20 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                   ],
+                ),
+                const SizedBox(height: 20),
+                InkWell(
+                  onTap: () {
+                    Get.to(HomeServiceAdvisor());
+                  },
+                  child: const Text(
+                    'Service Advisor',
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 193, 0, 223),
+                      fontSize: 14,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                 ),
               ],
             ),
