@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginUserController {
   var login_model = List<LoginModel>.empty().obs;
+  static bool isLoading = true;
 
   void loginUser(String email, String password) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -21,6 +22,7 @@ class LoginUserController {
         );
         LoginUserProvider().loginUser(email, password).then((value) {
           // validasi response berhasil apa tidak
+          isLoading = false;
           if (value.statusCode == 200) {
             // simpan ke sharedPreferences
             prefs.setString('uuid', '${value.body['data']['user']['uuid']}');
@@ -33,6 +35,7 @@ class LoginUserController {
             // cek role user apakah customer atau Service Advisor
             SnackBarWidget().snackBarSuccess("${value.body['message']}");
             if (value.body['data']['user']['role_id'] == 1) {
+              isLoading = true;
               Get.offAll(HomePage());
               SnackBarWidget().snackBarSuccess("CUSTOMER");
             } else {

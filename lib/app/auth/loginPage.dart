@@ -82,13 +82,15 @@ class _LoginPageState extends State<LoginPage> {
                         '${_passControll.text}',
                       );
                     },
-                    child: Text(
-                      'Masuk',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                      ),
-                    ),
+                    child: (LoginUserController.isLoading == false)
+                        ? Text("Loading...")
+                        : Text(
+                            'Masuk',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 15,
+                            ),
+                          ),
                     style: ButtonStyle(
                       overlayColor: MaterialStateProperty.all(Colors.red),
                       backgroundColor:
@@ -97,13 +99,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 const SizedBox(height: 15),
-                const Text(
-                  "OR",
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Color(0xFF6F6F6F),
-                  ),
-                ),
+
                 // const SizedBox(height: 15),
                 // SizedBox(
                 //   height: 45,
@@ -142,7 +138,7 @@ class _LoginPageState extends State<LoginPage> {
                 //     ),
                 //   ),
                 // ),
-                const SizedBox(height: 15),
+                // const SizedBox(height: 15),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

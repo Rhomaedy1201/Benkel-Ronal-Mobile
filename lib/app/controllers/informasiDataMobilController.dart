@@ -28,7 +28,10 @@ class InformasiDataMobilController extends GetxController {
         data.forEach((element) {
           result.add(InformasiDataMobilModel.fromJson(element));
         });
+        print(response.body);
         return result;
+      } else {
+        print(response.body);
       }
       return result;
     } catch (e) {

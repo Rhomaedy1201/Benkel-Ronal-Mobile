@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:pemesanan_service_mobil/app/controllers/informasiDataMobilController.dart';
 import 'package:pemesanan_service_mobil/app/models/informasiDataMobilModel.dart';
 import 'package:pemesanan_service_mobil/app/pages/main/reservasi/ReservasiServiceBooking.dart';
+import 'package:pemesanan_service_mobil/app/pages/main/reservasi/ReservasiServicePage.dart';
 
 class InformasiDataMobilPage extends StatefulWidget {
   const InformasiDataMobilPage({super.key});
@@ -258,7 +259,7 @@ class _InformasiDataMobilPageState extends State<InformasiDataMobilPage> {
                   height: 45,
                   child: ElevatedButton(
                     onPressed: () {
-                      Get.back();
+                      Get.to(ReservasiServicePage());
                     },
                     child: Text('Tambah Kendaraan'),
                     style: ButtonStyle(

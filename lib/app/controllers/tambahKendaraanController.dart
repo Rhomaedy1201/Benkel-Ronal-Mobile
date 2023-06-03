@@ -19,7 +19,7 @@ class TambahKendaraanController {
     String nomor_stnk,
     String masa_stnk,
   ) {
-    if (merk != '' &&
+    if (merk != null &&
         model != '' &&
         nomor_rangka != '' &&
         user_id != null &&
@@ -49,7 +49,7 @@ class TambahKendaraanController {
           .then((response) {
         if (response.statusCode == 200) {
           SnackBarWidget().snackBarSuccess("Berhasil Menambahkan Kendaraan");
-          Get.to(InformasiDataMobilPage());
+          Get.off(InformasiDataMobilPage());
         }
         print(response.body);
       });

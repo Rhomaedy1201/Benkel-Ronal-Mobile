@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pemesanan_service_mobil/app/controllers/tambahKendaraanController.dart';
 import 'package:pemesanan_service_mobil/app/pages/main/reservasi/InformasiDataMobilPage.dart';
+import 'package:pemesanan_service_mobil/app/pages/widgets/snackBar/SnackbarWidget.dart';
 import 'package:pemesanan_service_mobil/app/utils/base_url.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -135,7 +136,7 @@ class _ReservasiServicePageState extends State<ReservasiServicePage> {
                         hint: const Text("Pilih Merk Mobil"),
                         onChanged: (value) {
                           setState(() {
-                            merkMobil = value as String;
+                            merkMobil = value!;
                           });
                         },
                         items: merk_mobil.map((item) {
@@ -285,8 +286,9 @@ class _ReservasiServicePageState extends State<ReservasiServicePage> {
               ],
             ),
           ),
+          const SizedBox(height: 10),
           Padding(
-            padding: const EdgeInsets.all(30),
+            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
             child: SizedBox(
               height: 45,
               child: ElevatedButton(
@@ -304,18 +306,25 @@ class _ReservasiServicePageState extends State<ReservasiServicePage> {
                   // print(nomorPolisi.text);
                   // print(nomorIdentitas.text);
                   // print("$thnStnk-$blnStnk-$tglStnk");
-                  TambahKendaraanController().addCar(
-                    merkMobil!,
-                    modelMobil.text,
-                    nomorIdentitas.text,
-                    uuid!,
-                    tipeMobil.text,
-                    int.parse(thnProduksi),
-                    warna.text,
-                    nomorPolisi.text,
-                    nomorIdentitas.text,
-                    "$thnStnk-$blnStnk-$tglStnk",
-                  );
+                  if (merkMobil != null) {
+                    TambahKendaraanController().addCar(
+                      merkMobil!,
+                      modelMobil.text,
+                      nomorIdentitas.text,
+                      uuid!,
+                      tipeMobil.text,
+                      int.parse(thnProduksi),
+                      warna.text,
+                      nomorPolisi.text,
+                      nomorIdentitas.text,
+                      "$thnStnk-$blnStnk-$tglStnk",
+                    );
+                  } else {
+                    SnackBarWidget().snackBarError(
+                        "Informasi Tambah Kendaraan harus lengkap");
+                  }
+
+                  print(merkMobil);
                 },
                 child: Text('Tambahkan Kendaraan'),
                 style: ButtonStyle(
@@ -325,12 +334,6 @@ class _ReservasiServicePageState extends State<ReservasiServicePage> {
               ),
             ),
           ),
-          InkWell(
-            onTap: () {
-              Get.to(InformasiDataMobilPage());
-            },
-            child: Center(child: Text("lihat Inforasi Kendaraan")),
-          )
         ],
       ),
     );

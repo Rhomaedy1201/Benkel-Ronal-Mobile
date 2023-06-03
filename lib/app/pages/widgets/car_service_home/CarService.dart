@@ -3,8 +3,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
+import 'package:pemesanan_service_mobil/app/pages/main/HomePage.dart';
 import 'package:pemesanan_service_mobil/app/pages/main/about/AboutPage.dart';
 import 'package:pemesanan_service_mobil/app/pages/main/history/HistoryServicePage.dart';
+import 'package:pemesanan_service_mobil/app/pages/main/reservasi/InformasiDataMobilPage.dart';
 import 'package:pemesanan_service_mobil/app/pages/main/reservasi/ReservasiServicePage.dart';
 import 'package:pemesanan_service_mobil/app/utils/go_to_whatsapp.dart';
 
@@ -43,8 +45,10 @@ class CarService extends StatelessWidget {
   final reservasi = InkWell(
     onTap: () => {
       Get.to(
-        const ReservasiServicePage(),
+        const InformasiDataMobilPage(),
         transition: Transition.circularReveal,
+        // const ReservasiServicePage(),
+        // transition: Transition.circularReveal,
       )
     },
     child: Column(
