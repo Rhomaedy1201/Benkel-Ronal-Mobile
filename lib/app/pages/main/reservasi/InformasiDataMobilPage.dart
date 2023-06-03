@@ -54,202 +54,229 @@ class _InformasiDataMobilPageState extends State<InformasiDataMobilPage> {
         child: Column(
           children: [
             Expanded(
-              child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: list_kendaraan.length,
-                  itemBuilder: (BuildContext ctx, index) {
-                    return Column(
+              child: (list_kendaraan.length.isEqual(0))
+                  ? Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey),
+                        Text(
+                          "Kendaraan Masih Kosong!",
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
                           ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.all(10),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      list_kendaraan[index].merk!,
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                    Text(
-                                      list_kendaraan[index].tipeMobil!,
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                width: double.infinity,
-                                height: 5,
-                                color: Colors.grey,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "Nomor Polisi",
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w600,
-                                            color: Color(0xFFAFAFAF),
-                                          ),
-                                        ),
-                                        Text(
-                                          list_kendaraan[index].nopol!,
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        const Text(
-                                          "Warna",
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w600,
-                                            color: Color(0xFFAFAFAF),
-                                          ),
-                                        ),
-                                        Text(
-                                          list_kendaraan[index].warna!,
-                                          style: const TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                width: double.infinity,
-                                height: 5,
-                                color: Colors.grey,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        const Text(
-                                          "Nomor Rangka",
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w600,
-                                            color: Color(0xFFAFAFAF),
-                                          ),
-                                        ),
-                                        Text(
-                                          list_kendaraan[index].nomorRangka!,
-                                          style: const TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        const Text(
-                                          "Tahun Produksi",
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w600,
-                                            color: Color(0xFFAFAFAF),
-                                          ),
-                                        ),
-                                        Text(
-                                          list_kendaraan[index].tahunProduksi!,
-                                          style: const TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                width: double.infinity,
-                                height: 5,
-                                color: Colors.grey,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        const Text(
-                                          "Berlaku Sampai",
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w600,
-                                            color: Color(0xFFAFAFAF),
-                                          ),
-                                        ),
-                                        Text(
-                                          (list_kendaraan[index].masaStnk ==
-                                                      '' ||
-                                                  list_kendaraan[index]
-                                                          .masaStnk ==
-                                                      null)
-                                              ? "-"
-                                              : list_kendaraan[index].masaStnk!,
-                                          style: const TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
+                          textAlign: TextAlign.center,
+                        ),
+                        Text(
+                          textAlign: TextAlign.center,
+                          "Silahkan Tambahkan Kendaraan Terlebih dahulu.",
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
-                        const SizedBox(height: 20)
                       ],
-                    );
-                  }),
+                    )
+                  : ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: list_kendaraan.length,
+                      itemBuilder: (BuildContext ctx, index) {
+                        return Column(
+                          children: [
+                            Container(
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.grey),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.all(10),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          list_kendaraan[index].merk!,
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                        Text(
+                                          list_kendaraan[index].tipeMobil!,
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                    width: double.infinity,
+                                    height: 5,
+                                    color: Colors.grey,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(10),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "Nomor Polisi",
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w600,
+                                                color: Color(0xFFAFAFAF),
+                                              ),
+                                            ),
+                                            Text(
+                                              list_kendaraan[index].nopol!,
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            const Text(
+                                              "Warna",
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w600,
+                                                color: Color(0xFFAFAFAF),
+                                              ),
+                                            ),
+                                            Text(
+                                              list_kendaraan[index].warna!,
+                                              style: const TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                    width: double.infinity,
+                                    height: 5,
+                                    color: Colors.grey,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(10),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            const Text(
+                                              "Nomor Rangka",
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w600,
+                                                color: Color(0xFFAFAFAF),
+                                              ),
+                                            ),
+                                            Text(
+                                              list_kendaraan[index]
+                                                  .nomorRangka!,
+                                              style: const TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            const Text(
+                                              "Tahun Produksi",
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w600,
+                                                color: Color(0xFFAFAFAF),
+                                              ),
+                                            ),
+                                            Text(
+                                              list_kendaraan[index]
+                                                  .tahunProduksi!,
+                                              style: const TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                    width: double.infinity,
+                                    height: 5,
+                                    color: Colors.grey,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(10),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            const Text(
+                                              "Berlaku Sampai",
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w600,
+                                                color: Color(0xFFAFAFAF),
+                                              ),
+                                            ),
+                                            Text(
+                                              (list_kendaraan[index].masaStnk ==
+                                                          '' ||
+                                                      list_kendaraan[index]
+                                                              .masaStnk ==
+                                                          null)
+                                                  ? "-"
+                                                  : list_kendaraan[index]
+                                                      .masaStnk!,
+                                              style: const TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 20)
+                          ],
+                        );
+                      }),
             ),
             const SizedBox(height: 5),
             Row(
@@ -270,20 +297,22 @@ class _InformasiDataMobilPageState extends State<InformasiDataMobilPage> {
                   ),
                 ),
                 const SizedBox(width: 5),
-                SizedBox(
-                  height: 45,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Get.to(ReservasiServiceBooking());
-                    },
-                    child: Text('Reservasi Service'),
-                    style: ButtonStyle(
-                      overlayColor: MaterialStateProperty.all(Colors.red),
-                      backgroundColor:
-                          MaterialStateProperty.all(Colors.redAccent),
-                    ),
-                  ),
-                ),
+                (list_kendaraan.length.isEqual(0))
+                    ? Text('')
+                    : SizedBox(
+                        height: 45,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Get.to(ReservasiServiceBooking());
+                          },
+                          child: Text('Reservasi Service'),
+                          style: ButtonStyle(
+                            overlayColor: MaterialStateProperty.all(Colors.red),
+                            backgroundColor:
+                                MaterialStateProperty.all(Colors.redAccent),
+                          ),
+                        ),
+                      ),
               ],
             ),
           ],
