@@ -9,7 +9,7 @@ class TambahKendaraanController {
 
   void addCar(
     String merk,
-    int model_id,
+    String model,
     String nomor_rangka,
     String user_id,
     String tipe_mobil,
@@ -20,7 +20,7 @@ class TambahKendaraanController {
     String masa_stnk,
   ) {
     if (merk != '' &&
-        model_id != null &&
+        model != '' &&
         nomor_rangka != '' &&
         user_id != null &&
         tipe_mobil != '' &&
@@ -32,7 +32,7 @@ class TambahKendaraanController {
       tambah_kendaraan.add(
         TambahKendaraanModel(
           merk: merk,
-          model_id: model_id,
+          model: model,
           nomor_rangka: nomor_rangka,
           user_id: user_id,
           tipe_mobil: tipe_mobil,
@@ -44,7 +44,7 @@ class TambahKendaraanController {
         ),
       );
       TambahKendaraanProvider()
-          .postData(merk, model_id, nomor_rangka, user_id, tipe_mobil,
+          .postData(merk, model, nomor_rangka, user_id, tipe_mobil,
               tahun_produksi, warna, nopol, nomor_stnk, masa_stnk)
           .then((response) {
         if (response.statusCode == 200) {

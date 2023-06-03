@@ -18,26 +18,15 @@ class ReservasiServicePage extends StatefulWidget {
 }
 
 class _ReservasiServicePageState extends State<ReservasiServicePage> {
-  List<String> model_mobil = [
-    "Mobil 1",
-    "Mobil 2",
-    "Mobil 3",
-    "Mobil 4",
-  ];
-  List<String> type_mobil = [
-    "Toyota",
-    "Honda",
-    "Mitsubiz",
-  ];
-  List<String> warna_mobil = [
-    "Merah",
-    "Hitam",
-    "Silver",
-    "Putih",
+  List<String> merk_mobil = [
+    "HONDA",
+    "SUZUKI",
+    "TOYOTA",
+    "MAZDA",
   ];
 
-  TextEditingController merkMobil = TextEditingController(text: '');
-  String? modelMobil = null;
+  String? merkMobil = null;
+  TextEditingController modelMobil = TextEditingController(text: '');
   TextEditingController tipeMobil = TextEditingController(text: '');
   String thnProduksi = "0";
   TextEditingController warna = TextEditingController(text: '');
@@ -46,12 +35,11 @@ class _ReservasiServicePageState extends State<ReservasiServicePage> {
   String? tglStnk = null;
   String? blnStnk = null;
   String? thnStnk = null;
-  String? fullStnk = null;
 
   @override
   void initState() {
     super.initState();
-    getMobil();
+    // getMobil();
   }
 
   List<dynamic> result = [];
@@ -123,20 +111,11 @@ class _ReservasiServicePageState extends State<ReservasiServicePage> {
                 ),
 
                 // Inpututan
+
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(height: 10),
-                    TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Merk Mobil',
-                        labelText: 'Merk Mobil',
-                      ),
-                      controller: merkMobil,
-                    ),
-                    const SizedBox(height: 10),
-                    // Model Mobil
                     SizedBox(
                       height: 55,
                       child: DropdownButtonFormField(
@@ -152,17 +131,19 @@ class _ReservasiServicePageState extends State<ReservasiServicePage> {
                           filled: true,
                           fillColor: Colors.white,
                         ),
-                        value: modelMobil,
-                        hint: const Text("Pilih Model Mobil"),
+                        value: merkMobil,
+                        hint: const Text("Pilih Merk Mobil"),
                         onChanged: (value) {
                           setState(() {
-                            modelMobil = value as String;
+                            merkMobil = value as String;
                           });
                         },
-                        items: result.map((item) {
+                        items: merk_mobil.map((item) {
                           return DropdownMenuItem(
-                            child: Text(item['keterangan']),
-                            value: item['keterangan'],
+                            // child: Text(item['keterangan']),
+                            // value: item['keterangan'],
+                            child: Text(item),
+                            value: item,
                           );
                         }).toList(),
                       ),
@@ -171,10 +152,22 @@ class _ReservasiServicePageState extends State<ReservasiServicePage> {
                     TextField(
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
+                        hintText: 'Model Mobil',
+                        labelText: 'Model Mobil',
+                      ),
+                      controller: modelMobil,
+                      autocorrect: false,
+                    ),
+                    // Model Mobil
+                    const SizedBox(height: 10),
+                    TextField(
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
                         hintText: 'Tipe Mobil',
                         labelText: 'Tipe Mobil',
                       ),
                       controller: tipeMobil,
+                      autocorrect: false,
                     ),
                     const SizedBox(height: 10),
                     // Tahun Produksi
@@ -211,6 +204,7 @@ class _ReservasiServicePageState extends State<ReservasiServicePage> {
                         labelText: 'Warna',
                       ),
                       controller: warna,
+                      autocorrect: false,
                     ),
                     const SizedBox(height: 10),
                     TextField(
@@ -220,6 +214,7 @@ class _ReservasiServicePageState extends State<ReservasiServicePage> {
                         labelText: 'Nomer Polisi',
                       ),
                       controller: nomorPolisi,
+                      autocorrect: false,
                     ),
                     const SizedBox(height: 10),
                     TextField(
@@ -229,6 +224,7 @@ class _ReservasiServicePageState extends State<ReservasiServicePage> {
                         labelText: 'Nomer Identitas Kendaraan',
                       ),
                       controller: nomorIdentitas,
+                      autocorrect: false,
                     ),
                     const SizedBox(height: 10),
                     const Text(
@@ -298,9 +294,19 @@ class _ReservasiServicePageState extends State<ReservasiServicePage> {
                   SharedPreferences spref =
                       await SharedPreferences.getInstance();
                   String? uuid = spref.getString("uuid");
+                  // print(merkMobil);
+                  // print(modelMobil.text);
+                  // print(tipeMobil.text);
+                  // print(nomorIdentitas.text);
+                  // print(uuid);
+                  // print(thnProduksi);
+                  // print(warna.text);
+                  // print(nomorPolisi.text);
+                  // print(nomorIdentitas.text);
+                  // print("$thnStnk-$blnStnk-$tglStnk");
                   TambahKendaraanController().addCar(
-                    merkMobil.text,
-                    1,
+                    merkMobil!,
+                    modelMobil.text,
                     nomorIdentitas.text,
                     uuid!,
                     tipeMobil.text,

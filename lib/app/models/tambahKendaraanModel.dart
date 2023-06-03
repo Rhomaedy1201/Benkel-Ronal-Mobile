@@ -1,6 +1,6 @@
 class TambahKendaraanModel {
   String merk;
-  int model_id;
+  String model;
   String nomor_rangka;
   String user_id;
   String tipe_mobil;
@@ -12,7 +12,7 @@ class TambahKendaraanModel {
 
   TambahKendaraanModel({
     required this.merk,
-    required this.model_id,
+    required this.model,
     required this.nomor_rangka,
     required this.user_id,
     required this.tipe_mobil,

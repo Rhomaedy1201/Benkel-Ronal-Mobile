@@ -7,18 +7,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 class TambahKendaraanProvider extends GetConnect {
   String url = "$baseUrl/kendaraan/insert";
 
-  // void getToken(){
-  //   httpClient.addAuthenticator((request) async {
-  //     SharedPreferences spref = await SharedPreferences.getInstance();
-  //     String? token = spref.getString('token');
-  //     request.headers['Authorization'] = '$token';
-  //     return request;
-  //   });
-  // }
-
   Future<Response> postData(
     String merk,
-    int model_id,
+    String model,
     String nomor_rangka,
     String user_id,
     String tipe_mobil,
@@ -30,7 +21,7 @@ class TambahKendaraanProvider extends GetConnect {
   ) async {
     final body = json.encode({
       'merk': merk,
-      'model_id': model_id,
+      'model': model,
       'nomor_rangka': nomor_rangka,
       'user_id': user_id,
       'tipe_mobil': tipe_mobil,
