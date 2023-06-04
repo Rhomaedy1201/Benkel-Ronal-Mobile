@@ -128,7 +128,7 @@ class _DetailReservasiAdvisorState extends State<DetailReservasiAdvisor> {
                     ),
                   ),
                   Container(
-                    width: 190,
+                    width: 200,
                     // color: Colors.amberAccent,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -139,7 +139,9 @@ class _DetailReservasiAdvisorState extends State<DetailReservasiAdvisor> {
                           overflow: TextOverflow.ellipsis,
                         ),
                         const SizedBox(height: 2),
-                        Text(reservasi['tanggal']),
+                        Text(
+                          reservasi['tanggal'],
+                        ),
                         const SizedBox(height: 2),
                         Text(
                           reservasi['user']['no_hp'],
@@ -147,6 +149,8 @@ class _DetailReservasiAdvisorState extends State<DetailReservasiAdvisor> {
                         const SizedBox(height: 2),
                         Text(
                           reservasi['user']['email'],
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                         ),
                         const SizedBox(height: 2),
                         Text(
@@ -241,7 +245,8 @@ class _DetailReservasiAdvisorState extends State<DetailReservasiAdvisor> {
                   // Text(
                   //     "#### detail jika ditampilan OnProgress muncul btn ini, inputan dan btn yg bawah hilang ####"),
                   reservasi['status'] != 'onprocess' &&
-                          reservasi['status'] != 'cancelled'
+                          reservasi['status'] != 'cancelled' &&
+                          reservasi['status'] != 'done'
                       ? Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -291,7 +296,8 @@ class _DetailReservasiAdvisorState extends State<DetailReservasiAdvisor> {
                   //     "#### detail jika ditampilan Waiting muncul inputan dan btn ini, untuk btn yg atas hilang ####"),
 
                   reservasi['status'] != 'waiting' &&
-                          reservasi['status'] != 'cancelled'
+                          reservasi['status'] != 'cancelled' &&
+                          reservasi['status'] != 'done'
                       ? Column(
                           children: [
                             SizedBox(height: 20),
