@@ -346,7 +346,8 @@ class _DetailServiceState extends State<DetailService> {
                   ),
                   reservasi['status'] != 'waiting' &&
                           reservasi['status'] != 'cancelled' &&
-                          reservasi['status'] != 'done'
+                          reservasi['status'] != 'done' &&
+                          reservasi['status'] == 'onprocess'
                       ? Column(
                           children: [
                             TextField(

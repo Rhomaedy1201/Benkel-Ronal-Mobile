@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
 import 'package:pemesanan_service_mobil/app/pages/serviceAdvisor/HomeServiceAdvisor.dart';
 import 'package:pemesanan_service_mobil/app/utils/base_url.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DetailReservasiAdvisor extends StatefulWidget {
   const DetailReservasiAdvisor({super.key, required this.uuid});
@@ -17,6 +18,9 @@ class DetailReservasiAdvisor extends StatefulWidget {
 class _DetailReservasiAdvisorState extends State<DetailReservasiAdvisor> {
   Map reservasi = {};
   bool isloading = false;
+  TextEditingController _odometer = TextEditingController(text: '');
+  TextEditingController _part_pengganti = TextEditingController(text: '-');
+  TextEditingController _detail = TextEditingController(text: '-');
   @override
   void initState() {
     super.initState();
@@ -90,6 +94,31 @@ class _DetailReservasiAdvisorState extends State<DetailReservasiAdvisor> {
     });
   }
 
+  void insertService(
+      String detail, String odometer, String part_pengganti) async {
+    var id = widget.uuid;
+    try {
+      SharedPreferences spref = await SharedPreferences.getInstance();
+      String? token = await spref.getString('token');
+      http.Response response = await http
+          .post(Uri.parse("$baseUrl/reservasi/complete/service/$id"), headers: {
+        "Accept": "application/json",
+        "Authorization": "Bearer $token",
+      }, body: {
+        'odometer': odometer,
+        'detail': detail,
+        'part_pengganti': part_pengganti,
+      });
+      if (response.statusCode == 200) {
+        Navigator.pop(context);
+        print(response.body);
+      }
+      print(response.body);
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     Widget detail() {
@@ -112,23 +141,23 @@ class _DetailReservasiAdvisorState extends State<DetailReservasiAdvisor> {
                     // color: Colors.amberAccent,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
+                      children: const [
                         Text("Nama"),
-                        const SizedBox(height: 2),
+                        SizedBox(height: 2),
                         Text("Tanggal"),
-                        const SizedBox(height: 2),
+                        SizedBox(height: 2),
                         Text("Nomor Hp"),
-                        const SizedBox(height: 2),
+                        SizedBox(height: 2),
                         Text("Email"),
-                        const SizedBox(height: 2),
+                        SizedBox(height: 2),
                         Text("Jam Antri"),
-                        const SizedBox(height: 2),
+                        SizedBox(height: 2),
                         Text("Status"),
                       ],
                     ),
                   ),
                   Container(
-                    width: 200,
+                    width: 190,
                     // color: Colors.amberAccent,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -139,9 +168,7 @@ class _DetailReservasiAdvisorState extends State<DetailReservasiAdvisor> {
                           overflow: TextOverflow.ellipsis,
                         ),
                         const SizedBox(height: 2),
-                        Text(
-                          reservasi['tanggal'],
-                        ),
+                        Text(reservasi['tanggal']),
                         const SizedBox(height: 2),
                         Text(
                           reservasi['user']['no_hp'],
@@ -149,8 +176,6 @@ class _DetailReservasiAdvisorState extends State<DetailReservasiAdvisor> {
                         const SizedBox(height: 2),
                         Text(
                           reservasi['user']['email'],
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
                         ),
                         const SizedBox(height: 2),
                         Text(
@@ -197,15 +222,15 @@ class _DetailReservasiAdvisorState extends State<DetailReservasiAdvisor> {
                         // color: Colors.amberAccent,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
+                          children: const [
                             Text("Nomor Polisi"),
-                            const SizedBox(height: 2),
+                            SizedBox(height: 2),
                             Text("Warna"),
-                            const SizedBox(height: 2),
+                            SizedBox(height: 2),
                             Text("No Rangka"),
-                            const SizedBox(height: 2),
+                            SizedBox(height: 2),
                             Text("Thn Produksi"),
-                            const SizedBox(height: 2),
+                            SizedBox(height: 2),
                             Text("Kendala"),
                           ],
                         ),
@@ -310,10 +335,58 @@ class _DetailReservasiAdvisorState extends State<DetailReservasiAdvisor> {
                               ),
                               autocorrect: false,
                               maxLines: null,
-                              controller: null,
+                              controller: _part_pengganti,
+                            ),
+                          ],
+                        )
+                      : SizedBox(),
+
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height / 40,
+                  ),
+                  reservasi['status'] != 'waiting' &&
+                          reservasi['status'] != 'cancelled' &&
+                          reservasi['status'] != 'done' &&
+                          reservasi['status'] == 'onprocess'
+                      ? Column(
+                          children: [
+                            TextField(
+                              keyboardType: TextInputType.multiline,
+                              decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                                hintText: 'Odometer',
+                              ),
+                              autocorrect: false,
+                              maxLines: null,
+                              controller: _odometer,
+                            ),
+                          ],
+                        )
+                      : SizedBox(),
+
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height / 40,
+                  ),
+                  reservasi['status'] != 'waiting' &&
+                          reservasi['status'] != 'cancelled' &&
+                          reservasi['status'] != 'done'
+                      ? Column(
+                          children: [
+                            TextField(
+                              keyboardType: TextInputType.multiline,
+                              decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                                hintText: 'Detail',
+                              ),
+                              autocorrect: false,
+                              maxLines: null,
+                              controller: _detail,
                             ),
                             ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                insertService(_detail.text, _odometer.text,
+                                    _part_pengganti.text);
+                              },
                               child: Text(
                                 'Selesai',
                                 style: TextStyle(
