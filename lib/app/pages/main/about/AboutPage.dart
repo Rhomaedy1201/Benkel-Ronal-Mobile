@@ -80,7 +80,7 @@ class _AboutPageState extends State<AboutPage> {
             ),
             const SizedBox(height: 25),
             Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: const [
                 Icon(
@@ -102,7 +102,7 @@ class _AboutPageState extends State<AboutPage> {
             ),
             const SizedBox(height: 25),
             Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: const [
                 Icon(
@@ -125,7 +125,7 @@ class _AboutPageState extends State<AboutPage> {
             ),
             const SizedBox(height: 25),
             Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: const [
                 Icon(

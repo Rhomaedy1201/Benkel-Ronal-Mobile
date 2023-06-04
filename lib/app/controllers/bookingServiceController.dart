@@ -34,7 +34,8 @@ class BookingServiceController {
               kendaraan_id, user_id, detail_service, tanggal, jam, keluhan)
           .then((value) {
         if (value.statusCode == 200) {
-          SnackBarWidget().snackBarSuccess("Berhasil Menambahkan");
+          SnackBarWidget()
+              .snackBarSuccess("Berhasil Booking Service Kendaraan..");
           Get.back();
         }
         print(value.body);
