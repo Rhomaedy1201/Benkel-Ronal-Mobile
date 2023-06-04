@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
-import 'package:pemesanan_service_mobil/app/pages/main/HomeServiceAdvisor.dart';
+import 'package:pemesanan_service_mobil/app/pages/serviceAdvisor/HomeServiceAdvisor.dart';
 import 'package:pemesanan_service_mobil/app/utils/base_url.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -141,17 +141,17 @@ class _DetailServiceState extends State<DetailService> {
                     // color: Colors.amberAccent,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
+                      children: const [
                         Text("Nama"),
-                        const SizedBox(height: 2),
+                        SizedBox(height: 2),
                         Text("Tanggal"),
-                        const SizedBox(height: 2),
+                        SizedBox(height: 2),
                         Text("Nomor Hp"),
-                        const SizedBox(height: 2),
+                        SizedBox(height: 2),
                         Text("Email"),
-                        const SizedBox(height: 2),
+                        SizedBox(height: 2),
                         Text("Jam Antri"),
-                        const SizedBox(height: 2),
+                        SizedBox(height: 2),
                         Text("Status"),
                       ],
                     ),
@@ -222,15 +222,15 @@ class _DetailServiceState extends State<DetailService> {
                         // color: Colors.amberAccent,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
+                          children: const [
                             Text("Nomor Polisi"),
-                            const SizedBox(height: 2),
+                            SizedBox(height: 2),
                             Text("Warna"),
-                            const SizedBox(height: 2),
+                            SizedBox(height: 2),
                             Text("No Rangka"),
-                            const SizedBox(height: 2),
+                            SizedBox(height: 2),
                             Text("Thn Produksi"),
-                            const SizedBox(height: 2),
+                            SizedBox(height: 2),
                             Text("Kendala"),
                           ],
                         ),
