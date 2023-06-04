@@ -26,7 +26,7 @@ class _SplaceScreenState extends State<SplaceScreen> {
     print(prefs.getString('uuid'));
     Timer(Duration(seconds: 3), () {
       if (prefs.getString('uuid') != null) {
-        if (prefs.getString('role_id') == 1) {
+        if (prefs.getString("role_id") == "1") {
           Get.offAll(HomePage());
         } else {
           Get.offAll(HomeServiceAdvisor());

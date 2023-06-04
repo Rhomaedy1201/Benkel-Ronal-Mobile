@@ -37,12 +37,12 @@ class LoginUserController {
             // cek role user apakah customer atau Service Advisor
             SnackBarWidget().snackBarSuccess("${value.body['message']}");
             if (value.body['data']['user']['role_id'] == 1) {
-              isLoading = true;
+              // isLoading = true;
               Get.offAll(const HomePage());
-              SnackBarWidget().snackBarSuccess("CUSTOMER");
+              // SnackBarWidget().snackBarSuccess("CUSTOMER");
             } else {
               Get.offAll(const HomeServiceAdvisor());
-              SnackBarWidget().snackBarSuccess("SERVICE ADVISOR");
+              // SnackBarWidget().snackBarSuccess("SERVICE ADVISOR");
             }
             isLoading = false;
           } else {
