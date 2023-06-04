@@ -59,6 +59,7 @@ class _LoginPageState extends State<LoginPage> {
                     labelText: "Masukkan Email",
                   ),
                   keyboardType: TextInputType.emailAddress,
+                  autocorrect: false,
                 ),
                 const SizedBox(height: 15),
                 TextField(
@@ -83,7 +84,7 @@ class _LoginPageState extends State<LoginPage> {
                         '${_passControll.text}',
                       );
                     },
-                    child: (LoginUserController.isLoading == false)
+                    child: (LoginUserController.isLoading == true)
                         ? Text("Loading...")
                         : Text(
                             'Masuk',
