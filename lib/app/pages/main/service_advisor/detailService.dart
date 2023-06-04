@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:lottie/lottie.dart';
 import 'package:pemesanan_service_mobil/app/pages/main/HomeServiceAdvisor.dart';
 import 'package:pemesanan_service_mobil/app/utils/base_url.dart';
 
@@ -356,7 +357,11 @@ class _DetailServiceState extends State<DetailService> {
           children: [
             isloading
                 ? Center(
-                    child: Text("Loading"),
+                    child: Container(
+                      width: 110,
+                      height: 110,
+                      child: Lottie.asset("assets/lottie/loading.json"),
+                    ),
                   )
                 : detail(),
           ],
