@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pemesanan_service_mobil/app/auth/loginPage.dart';
 import 'package:pemesanan_service_mobil/app/pages/main/HomePage.dart';
+import 'package:pemesanan_service_mobil/app/pages/serviceAdvisor/HomeServiceAdvisor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SplaceScreen extends StatefulWidget {
@@ -25,11 +26,16 @@ class _SplaceScreenState extends State<SplaceScreen> {
     print(prefs.getString('uuid'));
     Timer(Duration(seconds: 3), () {
       if (prefs.getString('uuid') != null) {
-        Get.offAll(HomePage());
+        if (prefs.getString('role_id') == 1) {
+          Get.offAll(HomePage());
+        } else {
+          Get.offAll(HomeServiceAdvisor());
+        }
       } else {
         Get.offAll(LoginPage());
       }
     });
+    print(prefs.getString("role_id"));
   }
 
   Widget build(BuildContext context) {

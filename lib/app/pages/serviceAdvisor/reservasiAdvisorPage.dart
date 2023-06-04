@@ -1,24 +1,14 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
-import 'package:pemesanan_service_mobil/app/pages/main/service_advisor/DataReservasi.dart';
-import 'package:pemesanan_service_mobil/app/pages/main/service_advisor/detailService.dart';
-import 'package:pemesanan_service_mobil/app/pages/widgets/dialog/dialogWidget.dart';
-import 'package:pemesanan_service_mobil/app/utils/base_url.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:pemesanan_service_mobil/app/pages/serviceAdvisor/reservasi_advisor/DataReservasi.dart';
 
-class HomeServiceAdvisor extends StatefulWidget {
-  const HomeServiceAdvisor({super.key});
+class ReservasiAdvisorPage extends StatefulWidget {
+  const ReservasiAdvisorPage({super.key});
 
   @override
-  State<HomeServiceAdvisor> createState() => _HomeServiceAdvisorState();
+  State<ReservasiAdvisorPage> createState() => _ReservasiAdvisorPageState();
 }
 
-class _HomeServiceAdvisorState extends State<HomeServiceAdvisor>
+class _ReservasiAdvisorPageState extends State<ReservasiAdvisorPage>
     with TickerProviderStateMixin {
   List reservasi = [];
 
@@ -51,7 +41,7 @@ class _HomeServiceAdvisorState extends State<HomeServiceAdvisor>
           color: Color(0xFF5D5D5D),
         ),
         title: const Text(
-          "Service Advisor",
+          "Reservasi",
           style: TextStyle(
             color: Colors.black,
             fontSize: 17,
@@ -107,13 +97,6 @@ class _HomeServiceAdvisorState extends State<HomeServiceAdvisor>
             ),
           ],
         ),
-        actions: [
-          IconButton(
-              onPressed: () {
-                DialogWidget().dialogLogout(context);
-              },
-              icon: const Icon(Icons.logout))
-        ],
       ),
       body: TabBarView(
         controller: _tabController,

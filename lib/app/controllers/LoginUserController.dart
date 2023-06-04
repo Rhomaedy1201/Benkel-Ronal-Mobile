@@ -2,7 +2,7 @@ import 'package:pemesanan_service_mobil/app/Providers/loginUserProvider.dart';
 import 'package:pemesanan_service_mobil/app/models/loginModel.dart';
 import 'package:get/get.dart';
 import 'package:pemesanan_service_mobil/app/pages/main/HomePage.dart';
-import 'package:pemesanan_service_mobil/app/pages/main/HomeServiceAdvisor.dart';
+import 'package:pemesanan_service_mobil/app/pages/serviceAdvisor/HomeServiceAdvisor.dart';
 import 'package:pemesanan_service_mobil/app/pages/widgets/snackBar/SnackbarWidget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
