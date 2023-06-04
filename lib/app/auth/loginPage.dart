@@ -101,46 +101,6 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 const SizedBox(height: 15),
-
-                // const SizedBox(height: 15),
-                // SizedBox(
-                //   height: 45,
-                //   width: double.infinity,
-                //   child: ElevatedButton(
-                //     onPressed: () {},
-                //     child: Row(
-                //       mainAxisAlignment: MainAxisAlignment.center,
-                //       children: [
-                //         Container(
-                //           width: 30,
-                //           height: 30,
-                //           decoration: BoxDecoration(
-                //             image: DecorationImage(
-                //               image: AssetImage('assets/icons/Google.png'),
-                //             ),
-                //           ),
-                //         ),
-                //         SizedBox(width: 10),
-                //         Text(
-                //           'Login With Google',
-                //           style: TextStyle(
-                //             color: Colors.black,
-                //             fontSize: 13.5,
-                //             fontWeight: FontWeight.w400,
-                //           ),
-                //         ),
-                //       ],
-                //     ),
-                //     style: ButtonStyle(
-                //       elevation: MaterialStateProperty.all(0.7),
-                //       overlayColor:
-                //           MaterialStateProperty.all(Color(0xFFDEDEDE)),
-                //       backgroundColor:
-                //           MaterialStateProperty.all(Color(0xFFF1F1F1)),
-                //     ),
-                //   ),
-                // ),
-                // const SizedBox(height: 15),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -165,20 +125,6 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                   ],
-                ),
-                const SizedBox(height: 20),
-                InkWell(
-                  onTap: () {
-                    Get.to(HomeServiceAdvisor());
-                  },
-                  child: const Text(
-                    'Ini Tampilan Service Advisor "KLIK" ',
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 193, 0, 223),
-                      fontSize: 14,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
                 ),
               ],
             ),

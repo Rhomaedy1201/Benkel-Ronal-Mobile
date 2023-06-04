@@ -227,7 +227,7 @@ class _ResultSearchHistoryServiceState
                                             height: MediaQuery.of(context)
                                                     .size
                                                     .height /
-                                                15,
+                                                33,
                                             child: GridView(
                                               physics:
                                                   const NeverScrollableScrollPhysics(),
@@ -271,7 +271,7 @@ class _ResultSearchHistoryServiceState
                                             padding: const EdgeInsets.all(10),
                                             color: const Color(0xFFB9B9B9),
                                             child: Text(
-                                              "Detail \n${daftar_service[index].detail!}",
+                                              "Detail : \n${daftar_service[index].detail!}",
                                               style: const TextStyle(
                                                 fontSize: 13,
                                                 color: Color(0xFFE61F11),

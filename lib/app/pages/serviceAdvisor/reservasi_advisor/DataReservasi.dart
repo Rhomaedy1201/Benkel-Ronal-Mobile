@@ -102,7 +102,7 @@ class _DataReservasiState extends State<DataReservasi> {
                                                 1.3,
                                         height:
                                             MediaQuery.of(context).size.height /
-                                                10,
+                                                20,
                                         child: GridView(
                                           physics:
                                               NeverScrollableScrollPhysics(),
@@ -369,7 +369,7 @@ class _DataReservasiState extends State<DataReservasi> {
                                                 1.3,
                                         height:
                                             MediaQuery.of(context).size.height /
-                                                5,
+                                                33,
                                         child: GridView(
                                           physics:
                                               NeverScrollableScrollPhysics(),
