@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
 import 'package:pemesanan_service_mobil/app/pages/main/HomeServiceAdvisor.dart';
 import 'package:pemesanan_service_mobil/app/utils/base_url.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DetailService extends StatefulWidget {
   const DetailService({super.key, required this.uuid});
@@ -17,6 +18,9 @@ class DetailService extends StatefulWidget {
 class _DetailServiceState extends State<DetailService> {
   Map reservasi = {};
   bool isloading = false;
+  TextEditingController _odometer = TextEditingController(text: '');
+  TextEditingController _part_pengganti = TextEditingController(text: '-');
+  TextEditingController _detail = TextEditingController(text: '-');
   @override
   void initState() {
     super.initState();
@@ -88,6 +92,31 @@ class _DetailServiceState extends State<DetailService> {
     setState(() {
       isloading = false;
     });
+  }
+
+  void insertService(
+      String detail, String odometer, String part_pengganti) async {
+    var id = widget.uuid;
+    try {
+      SharedPreferences spref = await SharedPreferences.getInstance();
+      String? token = await spref.getString('token');
+      http.Response response = await http
+          .post(Uri.parse("$baseUrl/reservasi/complete/service/$id"), headers: {
+        "Accept": "application/json",
+        "Authorization": "Bearer $token",
+      }, body: {
+        'odometer': odometer,
+        'detail': detail,
+        'part_pengganti': part_pengganti,
+      });
+      if (response.statusCode == 200) {
+        Navigator.pop(context);
+        print(response.body);
+      }
+      print(response.body);
+    } catch (e) {
+      print(e.toString());
+    }
   }
 
   @override
@@ -241,7 +270,8 @@ class _DetailServiceState extends State<DetailService> {
                   // Text(
                   //     "#### detail jika ditampilan OnProgress muncul btn ini, inputan dan btn yg bawah hilang ####"),
                   reservasi['status'] != 'onprocess' &&
-                          reservasi['status'] != 'cancelled'
+                          reservasi['status'] != 'cancelled' &&
+                          reservasi['status'] != 'done'
                       ? Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -291,7 +321,8 @@ class _DetailServiceState extends State<DetailService> {
                   //     "#### detail jika ditampilan Waiting muncul inputan dan btn ini, untuk btn yg atas hilang ####"),
 
                   reservasi['status'] != 'waiting' &&
-                          reservasi['status'] != 'cancelled'
+                          reservasi['status'] != 'cancelled' &&
+                          reservasi['status'] != 'done'
                       ? Column(
                           children: [
                             SizedBox(height: 20),
@@ -304,10 +335,57 @@ class _DetailServiceState extends State<DetailService> {
                               ),
                               autocorrect: false,
                               maxLines: null,
-                              controller: null,
+                              controller: _part_pengganti,
+                            ),
+                          ],
+                        )
+                      : SizedBox(),
+
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height / 40,
+                  ),
+                  reservasi['status'] != 'waiting' &&
+                          reservasi['status'] != 'cancelled' &&
+                          reservasi['status'] != 'done'
+                      ? Column(
+                          children: [
+                            TextField(
+                              keyboardType: TextInputType.multiline,
+                              decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                                hintText: 'Odometer',
+                              ),
+                              autocorrect: false,
+                              maxLines: null,
+                              controller: _odometer,
+                            ),
+                          ],
+                        )
+                      : SizedBox(),
+
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height / 40,
+                  ),
+                  reservasi['status'] != 'waiting' &&
+                          reservasi['status'] != 'cancelled' &&
+                          reservasi['status'] != 'done'
+                      ? Column(
+                          children: [
+                            TextField(
+                              keyboardType: TextInputType.multiline,
+                              decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                                hintText: 'Detail',
+                              ),
+                              autocorrect: false,
+                              maxLines: null,
+                              controller: _detail,
                             ),
                             ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                insertService(_detail.text, _odometer.text,
+                                    _part_pengganti.text);
+                              },
                               child: Text(
                                 'Selesai',
                                 style: TextStyle(
