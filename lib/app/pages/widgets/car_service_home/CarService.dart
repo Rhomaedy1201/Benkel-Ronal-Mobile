@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
@@ -13,10 +14,15 @@ import 'package:pemesanan_service_mobil/app/utils/go_to_whatsapp.dart';
 class CarService extends StatelessWidget {
   CarService({super.key});
 
-  final about = GestureDetector(
-      onTap: () => {
-            Get.to(const AboutPage(), transition: Transition.circularReveal),
-          },
+  final about = InkWell(
+      onTap: () async {
+        final connectivityResult = await (Connectivity().checkConnectivity());
+        if (connectivityResult == ConnectivityResult.none) {
+          print("NO INTERNET");
+        } else {
+          Get.to(const AboutPage(), transition: Transition.circularReveal);
+        }
+      },
       child: Container(
         child: Column(
           children: [
@@ -43,13 +49,16 @@ class CarService extends StatelessWidget {
       ));
 
   final reservasi = InkWell(
-    onTap: () => {
-      Get.to(
-        const InformasiDataMobilPage(),
-        transition: Transition.circularReveal,
-        // const ReservasiServicePage(),
-        // transition: Transition.circularReveal,
-      )
+    onTap: () async {
+      final connectivityResult = await (Connectivity().checkConnectivity());
+      if (connectivityResult == ConnectivityResult.none) {
+        print("NO INTERNET");
+      } else {
+        Get.to(
+          const InformasiDataMobilPage(),
+          transition: Transition.circularReveal,
+        );
+      }
     },
     child: Column(
       children: [
@@ -76,11 +85,16 @@ class CarService extends StatelessWidget {
   );
 
   final history_service = InkWell(
-    onTap: () => {
-      Get.to(
-        const HistoryServicePage(),
-        transition: Transition.circularReveal,
-      )
+    onTap: () async {
+      final connectivityResult = await (Connectivity().checkConnectivity());
+      if (connectivityResult == ConnectivityResult.none) {
+        print("NO INTERNET");
+      } else {
+        Get.to(
+          const HistoryServicePage(),
+          transition: Transition.circularReveal,
+        );
+      }
     },
     child: Column(
       children: [
@@ -107,7 +121,12 @@ class CarService extends StatelessWidget {
   );
   final whatsapp = InkWell(
     onTap: () async {
-      GoToWhatsApp().launchWhatsApp("message");
+      final connectivityResult = await (Connectivity().checkConnectivity());
+      if (connectivityResult == ConnectivityResult.none) {
+        print("NO INTERNET");
+      } else {
+        GoToWhatsApp().launchWhatsApp("message");
+      }
     },
     child: Column(
       children: [

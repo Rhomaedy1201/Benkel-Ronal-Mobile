@@ -5,6 +5,7 @@ import 'package:datepicker_dropdown/datepicker_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:pemesanan_service_mobil/app/controllers/tambahKendaraanController.dart';
+import 'package:pemesanan_service_mobil/app/internet_injection/depedency_injection.dart';
 import 'package:pemesanan_service_mobil/app/pages/widgets/snackBar/SnackbarWidget.dart';
 import 'package:pemesanan_service_mobil/app/utils/base_url.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -44,6 +45,7 @@ class _ReservasiServicePageState extends State<ReservasiServicePage> {
   void initState() {
     super.initState();
     getMerkMobil();
+    // DepedencyInjection.init();
   }
 
   var isLoading = false;

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:pemesanan_service_mobil/app/utils/forMap.dart';
 
@@ -35,8 +36,14 @@ class _AboutPageState extends State<AboutPage> {
         child: Column(
           children: [
             InkWell(
-              onTap: () {
-                MapUtils.openMap(-7.941028, 113.809225);
+              onTap: () async {
+                final connectivityResult =
+                    await (Connectivity().checkConnectivity());
+                if (connectivityResult == ConnectivityResult.none) {
+                  print("NO INTERNET");
+                } else {
+                  MapUtils.openMap(-7.941028, 113.809225);
+                }
               },
               child: Container(
                 width: double.infinity,

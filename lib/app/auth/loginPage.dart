@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pemesanan_service_mobil/app/auth/registerPage.dart';
@@ -78,11 +79,17 @@ class _LoginPageState extends State<LoginPage> {
                   height: 45,
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: () {
-                      LoginUserController().loginUser(
-                        '${_emailControll.text}',
-                        '${_passControll.text}',
-                      );
+                    onPressed: () async {
+                      final connectivityResult =
+                          await (Connectivity().checkConnectivity());
+                      if (connectivityResult == ConnectivityResult.none) {
+                        print("NO INTERNET");
+                      } else {
+                        LoginUserController().loginUser(
+                          '${_emailControll.text}',
+                          '${_passControll.text}',
+                        );
+                      }
                     },
                     child: (LoginUserController.isLoading == true)
                         ? Text("Loading...")
@@ -112,8 +119,14 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     InkWell(
-                      onTap: () {
-                        Get.to(RegisterPage());
+                      onTap: () async {
+                        final connectivityResult =
+                            await (Connectivity().checkConnectivity());
+                        if (connectivityResult == ConnectivityResult.none) {
+                          print("NO INTERNET");
+                        } else {
+                          Get.to(RegisterPage());
+                        }
                       },
                       child: const Text(
                         'Buat Akun Sekarang',

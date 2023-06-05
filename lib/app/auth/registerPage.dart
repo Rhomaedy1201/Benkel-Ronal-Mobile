@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
@@ -176,21 +177,27 @@ class _RegisterPageState extends State<RegisterPage> {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () async {
-                  setState(() {
-                    isLoading = true;
-                  });
+                  final connectivityResult =
+                      await (Connectivity().checkConnectivity());
+                  if (connectivityResult == ConnectivityResult.none) {
+                    print("NO INTERNET");
+                  } else {
+                    setState(() {
+                      isLoading = true;
+                    });
 
-                  addUser(
-                    "${namaC.text}",
-                    "${no_hpC.text}",
-                    "${emailC.text}",
-                    "${passwordC.text}",
-                  );
+                    addUser(
+                      "${namaC.text}",
+                      "${no_hpC.text}",
+                      "${emailC.text}",
+                      "${passwordC.text}",
+                    );
 
-                  print(namaC.text);
-                  print(no_hpC.text);
-                  print(emailC.text);
-                  print(passwordC.text);
+                    print(namaC.text);
+                    print(no_hpC.text);
+                    print(emailC.text);
+                    print(passwordC.text);
+                  }
                 },
                 child: Text(
                   isLoading ? 'Loading...' : 'Register',

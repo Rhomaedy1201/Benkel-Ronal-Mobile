@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -301,8 +302,14 @@ class _InformasiDataMobilPageState extends State<InformasiDataMobilPage> {
                       SizedBox(
                         height: 45,
                         child: ElevatedButton(
-                          onPressed: () {
-                            Get.to(ReservasiServicePage());
+                          onPressed: () async {
+                            final connectivityResult =
+                                await (Connectivity().checkConnectivity());
+                            if (connectivityResult == ConnectivityResult.none) {
+                              print("NO INTERNET");
+                            } else {
+                              Get.to(ReservasiServicePage());
+                            }
                           },
                           child: Text('Tambah Kendaraan'),
                           style: ButtonStyle(
@@ -318,8 +325,16 @@ class _InformasiDataMobilPageState extends State<InformasiDataMobilPage> {
                           : SizedBox(
                               height: 45,
                               child: ElevatedButton(
-                                onPressed: () {
-                                  Get.to(ReservasiServiceBooking());
+                                onPressed: () async {
+                                  final connectivityResult =
+                                      await (Connectivity()
+                                          .checkConnectivity());
+                                  if (connectivityResult ==
+                                      ConnectivityResult.none) {
+                                    print("NO INTERNET");
+                                  } else {
+                                    Get.to(ReservasiServiceBooking());
+                                  }
                                 },
                                 child: Text('Reservasi Service'),
                                 style: ButtonStyle(

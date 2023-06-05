@@ -10,7 +10,7 @@ class GoToWhatsApp {
   ) async {
     String url;
     if (Platform.isAndroid) {
-      url = "https://api.whatsapp.com/send/?phone=$phoneNumber&text=Hello";
+      url = "https://api.whatsapp.com/send?phone=$phoneNumber=Hello";
     } else {
       url = "https://api.whatsapp.com/send?phone=$phoneNumber=HelloIphone";
     }

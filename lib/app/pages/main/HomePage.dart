@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pemesanan_service_mobil/app/pages/main/profile/profilePage.dart';
@@ -83,8 +84,15 @@ class _HomePageState extends State<HomePage> {
                         ],
                       ),
                       InkWell(
-                        onTap: () {
-                          Get.to(ProfilePage());
+                        onTap: () async {
+                          final connectivityResult =
+                              await (Connectivity().checkConnectivity());
+                          if (connectivityResult == ConnectivityResult.none) {
+                            print("NO INTERNET");
+                          } else {
+                            print("CONNECT INTERNET");
+                            Get.to(ProfilePage());
+                          }
                         },
                         child: Container(
                           width: 60,

@@ -42,6 +42,7 @@ dependencies:
   flutter_launcher_icons: ^0.11.0
   google_maps_flutter: ^2.2.8
   google_sign_in: ^6.1.3
+  connectivity_plus: 
   http: 
 
 flutter_icons:
