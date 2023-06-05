@@ -72,11 +72,9 @@ class RegisterUserController extends GetxController {
             .postData(nama, "+62$no_hp", email, password, "1")
             .then((value) {
           if (value.statusCode == 200) {
-            setStatus(value.statusCode!);
-            print("Status $getStatus()");
-            // snackBarSuccess(
-            //     "Berhasil Membuast akun. Verifikasi akun anda sekarang");
-            Get.offAll(LoginPage());
+            snackBarSuccess(
+                "Berhasil Membuat akun. Verifikasi akun anda sekarang");
+            Get.offAll(const LoginPage());
           }
           print("Status $getStatus()");
           // print(value.body);

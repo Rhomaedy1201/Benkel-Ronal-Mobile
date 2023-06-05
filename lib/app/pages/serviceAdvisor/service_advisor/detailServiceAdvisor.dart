@@ -1,8 +1,31 @@
 import 'package:flutter/material.dart';
 
-class DetailServiceAdvisor extends StatelessWidget {
-  const DetailServiceAdvisor({super.key});
+class DetailServiceAdvisor extends StatefulWidget {
+  const DetailServiceAdvisor(
+      {super.key,
+      required this.nama_cus,
+      required this.kendaran_merk,
+      required this.kendaran_model,
+      required this.kendaran_tipe,
+      required this.nopol,
+      required this.service_type,
+      required this.warna,
+      required this.service_advisor,
+      required this.tanggal});
+  final String nama_cus;
+  final String kendaran_merk;
+  final String kendaran_model;
+  final String kendaran_tipe;
+  final String nopol;
+  final String service_type;
+  final String warna;
+  final String service_advisor;
+  final String tanggal;
+  @override
+  State<DetailServiceAdvisor> createState() => _DetailServiceAdvisorState();
+}
 
+class _DetailServiceAdvisorState extends State<DetailServiceAdvisor> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +60,7 @@ class DetailServiceAdvisor extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Nama Cus : Muhammad Rhomaedi",
+                      "Nama Cus : ${widget.nama_cus}",
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -47,7 +70,7 @@ class DetailServiceAdvisor extends StatelessWidget {
                     ),
                     SizedBox(height: 10),
                     Text(
-                      "Honda",
+                      widget.kendaran_merk,
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
@@ -55,7 +78,7 @@ class DetailServiceAdvisor extends StatelessWidget {
                     ),
                     SizedBox(height: 5),
                     Text(
-                      "Model",
+                      widget.kendaran_model,
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
@@ -63,7 +86,7 @@ class DetailServiceAdvisor extends StatelessWidget {
                     ),
                     SizedBox(height: 5),
                     Text(
-                      "Tipe Mobil",
+                      widget.kendaran_tipe,
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
@@ -123,7 +146,7 @@ class DetailServiceAdvisor extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "No Polisi",
+                                widget.nopol,
                                 style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500,
@@ -131,7 +154,7 @@ class DetailServiceAdvisor extends StatelessWidget {
                               ),
                               SizedBox(height: 5),
                               Text(
-                                "Service Type",
+                                widget.service_type,
                                 style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500,
@@ -139,7 +162,7 @@ class DetailServiceAdvisor extends StatelessWidget {
                               ),
                               SizedBox(height: 5),
                               Text(
-                                "Warna",
+                                widget.warna,
                                 style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500,
@@ -147,7 +170,7 @@ class DetailServiceAdvisor extends StatelessWidget {
                               ),
                               SizedBox(height: 5),
                               Text(
-                                "Service Advisor",
+                                widget.service_advisor,
                                 style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500,
@@ -165,7 +188,7 @@ class DetailServiceAdvisor extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          "12-12-2034",
+                          widget.tanggal,
                           style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w500,
