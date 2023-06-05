@@ -51,7 +51,7 @@ class _InformasiDataMobilPageState extends State<InformasiDataMobilPage> {
           "Informasi Kendaraan",
           style: TextStyle(
             color: Colors.black,
-            fontSize: 19,
+            fontSize: 17,
           ),
         ),
       ),

@@ -76,7 +76,7 @@ class _ResultSearchHistoryServiceState
             )
           : daftar_service.isEmpty
               ? Center(
-                  child: Text("History Kosong"),
+                  child: Text("History Service Masih Kosong"),
                 )
               : Padding(
                   padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),

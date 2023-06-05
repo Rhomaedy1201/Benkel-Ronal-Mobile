@@ -32,6 +32,7 @@ class _ReservasiServiceBookingState extends State<ReservasiServiceBooking> {
   String? value_service_berkala = null;
   var keluhanC = TextEditingController(text: '');
   DateTime dateTime = DateTime(2022, 05, 10, 0, 00);
+  var isLoading2 = false;
 
   // data dummy
   List<String> service_berkala = [
@@ -107,7 +108,7 @@ class _ReservasiServiceBookingState extends State<ReservasiServiceBooking> {
           "Booking Now",
           style: TextStyle(
             color: Colors.black,
-            fontSize: 19,
+            fontSize: 17,
           ),
         ),
       ),
@@ -301,6 +302,9 @@ class _ReservasiServiceBookingState extends State<ReservasiServiceBooking> {
                     height: 45,
                     child: ElevatedButton(
                       onPressed: () async {
+                        setState(() {
+                          isLoading2 = true;
+                        });
                         var spref = await SharedPreferences.getInstance();
                         var userID = spref.getString("uuid");
 
@@ -360,6 +364,9 @@ class _ReservasiServiceBookingState extends State<ReservasiServiceBooking> {
                                           iconColor: Colors.white,
                                         ),
                                       ]);
+                                  setState(() {
+                                    isLoading2 = false;
+                                  });
                                 },
                               );
                               return AlertDialog(
@@ -395,7 +402,7 @@ class _ReservasiServiceBookingState extends State<ReservasiServiceBooking> {
                               .snackBarError("Semua Data Wajib Di Isi");
                         }
                       },
-                      child: Text('Kirim'),
+                      child: Text(isLoading2 ? 'Loading...' : 'Kirim'),
                       style: ButtonStyle(
                         overlayColor: MaterialStateProperty.all(Colors.red),
                         backgroundColor:

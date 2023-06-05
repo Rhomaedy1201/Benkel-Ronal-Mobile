@@ -18,6 +18,7 @@ class ReservasiServicePage extends StatefulWidget {
 }
 
 class _ReservasiServicePageState extends State<ReservasiServicePage> {
+  var isLoading2 = false;
   List<String> merk_mobil = [
     "Toyota",
     "Daihatsu",
@@ -88,7 +89,7 @@ class _ReservasiServicePageState extends State<ReservasiServicePage> {
           "Reservasi",
           style: TextStyle(
             color: Colors.black,
-            fontSize: 19,
+            fontSize: 17,
           ),
         ),
       ),
@@ -324,6 +325,9 @@ class _ReservasiServicePageState extends State<ReservasiServicePage> {
                             await SharedPreferences.getInstance();
                         String? uuid = spref.getString("uuid");
                         if (merkMobil != null) {
+                          setState(() {
+                            isLoading2 = true;
+                          });
                           TambahKendaraanController().addCar(
                             merkMobil!,
                             modelMobil.text,
@@ -343,7 +347,8 @@ class _ReservasiServicePageState extends State<ReservasiServicePage> {
 
                         print(merkMobil);
                       },
-                      child: Text('Tambahkan Kendaraan'),
+                      child: Text(
+                          isLoading2 ? 'Loading...' : 'Tambahkan Kendaraan'),
                       style: ButtonStyle(
                         overlayColor: MaterialStateProperty.all(Colors.red),
                         backgroundColor:
