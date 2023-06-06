@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
@@ -89,168 +90,188 @@ class _ServiceAdvisorPageState extends State<ServiceAdvisorPage> {
                 child: Lottie.asset("assets/lottie/loading.json"),
               ),
             )
-          : Padding(
-              padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-              child: ListView(
-                children: [
-                  const SizedBox(height: 5),
-                  ListView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: list_kendaraan.length,
-                    itemBuilder: (BuildContext ctx, index) {
-                      return InkWell(
-                        onTap: () {
-                          Get.to(DetailServiceAdvisor(
-                            kendaran_merk: list_kendaraan[index]['kendaraan']
-                                ['merk'],
-                            kendaran_model: list_kendaraan[index]['kendaraan']
-                                ['model'],
-                            kendaran_tipe: list_kendaraan[index]['kendaraan']
-                                ['tipe_mobil'],
-                            nama_cus: list_kendaraan[index]['kendaraan']['user']
-                                ['nama'],
-                            nopol: list_kendaraan[index]['kendaraan']['nopol'],
-                            tanggal: list_kendaraan[index]['tanggal'],
-                            service_advisor: list_kendaraan[index]
-                                ['service_advisor'],
-                            service_type: list_kendaraan[index]['tipe_service'],
-                            warna: list_kendaraan[index]['kendaraan']['warna'],
-                          ));
-                        },
-                        child: Column(
-                          children: [
-                            Container(
-                              width: MediaQuery.of(context).size.width,
-                              decoration: BoxDecoration(
-                                border: Border.all(color: Colors.grey),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                list_kendaraan[index]
-                                                    ['kendaraan']['tipe_mobil'],
-                                                style: const TextStyle(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w700,
-                                                ),
-                                              ),
-                                              const SizedBox(height: 5),
-                                              Text(
-                                                list_kendaraan[index]
-                                                    ['kendaraan']['model'],
-                                                style: const TextStyle(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w700,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Text(
-                                          // daftar_service[index].tanggal!.toUpperCase(),
-                                          list_kendaraan[index]['tanggal']
-                                              .toUpperCase(),
-                                          style: const TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(height: 10),
-                                    Container(
-                                      width: double.infinity,
-                                      height: 3,
-                                      color: Color(0xFFD7E2E6),
-                                    ),
-                                    Row(
+          : list_kendaraan.isEmpty
+              ? Center(child: Text("Data History Service Kosong!"))
+              : Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                  child: ListView(
+                    children: [
+                      const SizedBox(height: 5),
+                      ListView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: list_kendaraan.length,
+                        itemBuilder: (BuildContext ctx, index) {
+                          return InkWell(
+                            onTap: () async {
+                              final connectivityResult =
+                                  await (Connectivity().checkConnectivity());
+                              if (connectivityResult ==
+                                  ConnectivityResult.none) {
+                                print("NO INTERNET");
+                              } else {
+                                Get.to(DetailServiceAdvisor(
+                                  kendaran_merk: list_kendaraan[index]
+                                      ['kendaraan']['merk'],
+                                  kendaran_model: list_kendaraan[index]
+                                      ['kendaraan']['model'],
+                                  kendaran_tipe: list_kendaraan[index]
+                                      ['kendaraan']['tipe_mobil'],
+                                  nama_cus: list_kendaraan[index]['kendaraan']
+                                      ['user']['nama'],
+                                  nopol: list_kendaraan[index]['kendaraan']
+                                      ['nopol'],
+                                  tanggal: list_kendaraan[index]['tanggal'],
+                                  service_advisor: list_kendaraan[index]
+                                      ['service_advisor'],
+                                  service_type: list_kendaraan[index]
+                                      ['tipe_service'],
+                                  warna: list_kendaraan[index]['kendaraan']
+                                      ['warna'],
+                                ));
+                              }
+                            },
+                            child: Column(
+                              children: [
+                                Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.grey),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(10),
+                                    child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Container(
-                                          width: 110,
-                                          // color: Colors.amber,
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              const SizedBox(height: 3),
-                                              Text(
-                                                "Warna",
-                                                style: const TextStyle(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w700,
-                                                ),
+                                        Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Container(
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    list_kendaraan[index]
+                                                            ['kendaraan']
+                                                        ['tipe_mobil'],
+                                                    style: const TextStyle(
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                    ),
+                                                  ),
+                                                  const SizedBox(height: 5),
+                                                  Text(
+                                                    list_kendaraan[index]
+                                                        ['kendaraan']['model'],
+                                                    style: const TextStyle(
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
-                                              const SizedBox(height: 5),
-                                              Text(
-                                                "Serivce Type",
-                                                style: const TextStyle(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w700,
-                                                ),
+                                            ),
+                                            Text(
+                                              // daftar_service[index].tanggal!.toUpperCase(),
+                                              list_kendaraan[index]['tanggal']
+                                                  .toUpperCase(),
+                                              style: const TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w500,
                                               ),
-                                            ],
-                                          ),
+                                            ),
+                                          ],
                                         ),
+                                        SizedBox(height: 10),
                                         Container(
-                                          width: 140,
-                                          // color: Colors.amber,
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              const SizedBox(height: 3),
-                                              Text(
-                                                list_kendaraan[index]
-                                                    ['kendaraan']['warna'],
-                                                style: const TextStyle(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w700,
-                                                ),
+                                          width: double.infinity,
+                                          height: 3,
+                                          color: Color(0xFFD7E2E6),
+                                        ),
+                                        Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Container(
+                                              width: 110,
+                                              // color: Colors.amber,
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  const SizedBox(height: 3),
+                                                  Text(
+                                                    "Warna",
+                                                    style: const TextStyle(
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                    ),
+                                                  ),
+                                                  const SizedBox(height: 5),
+                                                  Text(
+                                                    "Serivce Type",
+                                                    style: const TextStyle(
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
-                                              const SizedBox(height: 5),
-                                              Text(
-                                                list_kendaraan[index]
-                                                    ['tipe_service'],
-                                                style: const TextStyle(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w700,
-                                                ),
+                                            ),
+                                            Container(
+                                              width: 140,
+                                              // color: Colors.amber,
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  const SizedBox(height: 3),
+                                                  Text(
+                                                    list_kendaraan[index]
+                                                        ['kendaraan']['warna'],
+                                                    style: const TextStyle(
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                    ),
+                                                  ),
+                                                  const SizedBox(height: 5),
+                                                  Text(
+                                                    list_kendaraan[index]
+                                                        ['tipe_service'],
+                                                    style: const TextStyle(
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
-                                            ],
-                                          ),
+                                            ),
+                                          ],
                                         ),
                                       ],
                                     ),
-                                  ],
+                                  ),
                                 ),
-                              ),
+                                const SizedBox(height: 20)
+                              ],
                             ),
-                            const SizedBox(height: 20)
-                          ],
-                        ),
-                      );
-                    },
+                          );
+                        },
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ),
+                ),
     );
   }
 }

@@ -1,9 +1,34 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:pemesanan_service_mobil/app/pages/widgets/dialog/dialogWidget.dart';
 import 'package:pemesanan_service_mobil/app/pages/widgets/menu_home_advisor/menuHomeAdvisor.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class HomeServiceAdvisor extends StatelessWidget {
+class HomeServiceAdvisor extends StatefulWidget {
   const HomeServiceAdvisor({super.key});
+
+  @override
+  State<HomeServiceAdvisor> createState() => _HomeServiceAdvisorState();
+}
+
+class _HomeServiceAdvisorState extends State<HomeServiceAdvisor> {
+  String nama = '';
+  late SharedPreferences spref;
+  @override
+  void initState() {
+    super.initState();
+    init();
+  }
+
+  Future init() async {
+    spref = await SharedPreferences.getInstance();
+    String? nama = spref.getString('nama');
+    if (nama == null) return;
+    setState(() {
+      this.nama = nama;
+      print(this.nama);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +50,14 @@ class HomeServiceAdvisor extends StatelessWidget {
           ),
           actions: [
             IconButton(
-                onPressed: () {
-                  DialogWidget().dialogLogout(context);
+                onPressed: () async {
+                  final connectivityResult =
+                      await (Connectivity().checkConnectivity());
+                  if (connectivityResult == ConnectivityResult.none) {
+                    print("NO INTERNET");
+                  } else {
+                    DialogWidget().dialogLogout(context);
+                  }
                 },
                 icon: const Icon(Icons.logout))
           ],
@@ -46,7 +77,7 @@ class HomeServiceAdvisor extends StatelessWidget {
             ),
             const SizedBox(height: 7),
             Text(
-              "NAMA ADVISOR",
+              nama,
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w800,

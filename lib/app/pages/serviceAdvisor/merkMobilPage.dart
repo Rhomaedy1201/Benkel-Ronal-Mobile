@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
@@ -125,13 +126,20 @@ class _MerkMobilPageState extends State<MerkMobilPage> {
                           width: double.infinity,
                           child: ElevatedButton(
                             onPressed: () async {
-                              if (controllerMerk.text != '') {
-                                postMerk();
-                                controllerMerk.text = '';
-                                getMerkMobil();
+                              final connectivityResult =
+                                  await (Connectivity().checkConnectivity());
+                              if (connectivityResult ==
+                                  ConnectivityResult.none) {
+                                print("NO INTERNET");
                               } else {
-                                SnackBarWidget().snackBarError(
-                                    "Input/Tambah Merk Mobil Terlebih dahulu!");
+                                if (controllerMerk.text != '') {
+                                  postMerk();
+                                  controllerMerk.text = '';
+                                  getMerkMobil();
+                                } else {
+                                  SnackBarWidget().snackBarError(
+                                      "Input/Tambah Merk Mobil Terlebih dahulu!");
+                                }
                               }
                             },
                             child: const Text(

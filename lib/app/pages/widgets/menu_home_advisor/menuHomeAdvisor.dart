@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
@@ -9,12 +10,17 @@ class MenuHomeAdvisor extends StatelessWidget {
   MenuHomeAdvisor({super.key});
 
   final merk_mobil = InkWell(
-      onTap: () => {
-            Get.to(
-              const MerkMobilPage(),
-              transition: Transition.circularReveal,
-            ),
-          },
+      onTap: () async {
+        final connectivityResult = await (Connectivity().checkConnectivity());
+        if (connectivityResult == ConnectivityResult.none) {
+          print("NO INTERNET");
+        } else {
+          Get.to(
+            const MerkMobilPage(),
+            transition: Transition.circularReveal,
+          );
+        }
+      },
       child: Container(
         child: Column(
           children: [
@@ -41,11 +47,16 @@ class MenuHomeAdvisor extends StatelessWidget {
       ));
 
   final reservasi = InkWell(
-    onTap: () => {
-      Get.to(
-        const ReservasiAdvisorPage(),
-        transition: Transition.circularReveal,
-      )
+    onTap: () async {
+      final connectivityResult = await (Connectivity().checkConnectivity());
+      if (connectivityResult == ConnectivityResult.none) {
+        print("NO INTERNET");
+      } else {
+        Get.to(
+          const ReservasiAdvisorPage(),
+          transition: Transition.circularReveal,
+        );
+      }
     },
     child: Column(
       children: [
@@ -72,11 +83,16 @@ class MenuHomeAdvisor extends StatelessWidget {
   );
 
   final history_service = InkWell(
-    onTap: () => {
-      Get.to(
-        const ServiceAdvisorPage(),
-        transition: Transition.circularReveal,
-      )
+    onTap: () async {
+      final connectivityResult = await (Connectivity().checkConnectivity());
+      if (connectivityResult == ConnectivityResult.none) {
+        print("NO INTERNET");
+      } else {
+        Get.to(
+          const ServiceAdvisorPage(),
+          transition: Transition.circularReveal,
+        );
+      }
     },
     child: Column(
       children: [

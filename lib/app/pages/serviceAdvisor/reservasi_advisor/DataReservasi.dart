@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
@@ -75,9 +76,17 @@ class _DataReservasiState extends State<DataReservasi> {
                   physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (BuildContext ctx, index) {
                     return InkWell(
-                      onTap: () {
-                        Get.to(DetailReservasiAdvisor(
-                            uuid: reservasi[index]['id']!));
+                      onTap: () async {
+                        final connectivityResult =
+                            await (Connectivity().checkConnectivity());
+                        if (connectivityResult == ConnectivityResult.none) {
+                          print("NO INTERNET");
+                        } else {
+                          Get.to(
+                            DetailReservasiAdvisor(
+                                uuid: reservasi[index]['id']!),
+                          );
+                        }
                       },
                       child: Column(
                         children: [
