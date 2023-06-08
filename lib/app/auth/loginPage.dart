@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,6 +14,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  var isLoading = false;
   @override
   Widget build(BuildContext context) {
     TextEditingController _emailControll = TextEditingController(text: '');
@@ -78,18 +81,29 @@ class _LoginPageState extends State<LoginPage> {
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () async {
+                      setState(() {
+                        isLoading = true;
+                      });
                       final connectivityResult =
                           await (Connectivity().checkConnectivity());
                       if (connectivityResult == ConnectivityResult.none) {
                         print("NO INTERNET");
                       } else {
+                        // Timer(Duration(seconds: 3), () {
                         LoginUserController().loginUser(
                           '${_emailControll.text}',
                           '${_passControll.text}',
                         );
+                        setState(() {
+                          isLoading = LoginUserController.isLoading;
+                          // });
+                        });
                       }
+                      // setState(() {
+                      //   isLoading = false;
+                      // });
                     },
-                    child: (LoginUserController.isLoading == true)
+                    child: isLoading
                         ? Text("Loading...")
                         : Text(
                             'Masuk',

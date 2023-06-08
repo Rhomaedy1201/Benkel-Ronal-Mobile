@@ -22,12 +22,6 @@ class _ReservasiServicePageState extends State<ReservasiServicePage> {
   var isLoading2 = false;
   List<String> merk_mobil = [
     "Toyota",
-    "Daihatsu",
-    "Honda",
-    "Mitsubishi",
-    "Suzuki",
-    "Isuzu",
-    "Isuzu",
   ];
 
   String? merkMobil = null;

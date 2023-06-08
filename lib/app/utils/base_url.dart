@@ -1,2 +1,2 @@
-String urlWeb = "http://192.168.1.3:8000";
+String urlWeb = "https://bengkelronalac.site";
 String baseUrl = "$urlWeb/api";

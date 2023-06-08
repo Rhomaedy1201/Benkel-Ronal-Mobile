@@ -43,6 +43,7 @@ dependencies:
   google_maps_flutter: ^2.2.8
   google_sign_in: ^6.1.3
   connectivity_plus: 
+  android_intent_plus: ^4.0.1
   http: 
 
 flutter_icons:

@@ -31,7 +31,9 @@ class _ReservasiServiceBookingState extends State<ReservasiServiceBooking> {
   String id_kendaraan = '';
   String? value_service_berkala = null;
   var keluhanC = TextEditingController(text: '');
-  DateTime dateTime = DateTime(2022, 05, 10, 0, 00);
+  DateTime dtNow = DateTime.now();
+  DateTime dateTime = DateTime(DateTime.now().year, DateTime.now().month,
+      DateTime.now().day, DateTime.now().hour, DateTime.now().minute);
   var isLoading2 = false;
 
   // data dummy
@@ -42,6 +44,15 @@ class _ReservasiServiceBookingState extends State<ReservasiServiceBooking> {
     "Service Berkala 80000 Km",
     "Service Berkala 90000 Km",
     "Service Berkala 100000 Km",
+    "Service Berkala 120000 Km",
+    "Service Berkala 130000 Km",
+    "Service Berkala 140000 Km",
+    "Service Berkala 150000 Km",
+    "Service Berkala 160000 Km",
+    "Service Berkala 170000 Km",
+    "Service Berkala 180000 Km",
+    "Service Berkala 190000 Km",
+    "Service Berkala 200000 Km",
   ];
 
   @override
@@ -209,6 +220,8 @@ class _ReservasiServiceBookingState extends State<ReservasiServiceBooking> {
                     ),
                   ),
                   const SizedBox(height: 10),
+                  Text("Pilih Tanggal/Select Date"),
+                  const SizedBox(height: 5),
                   InkWell(
                     onTap: () async {
                       final date = await pickerDate();
@@ -237,9 +250,7 @@ class _ReservasiServiceBookingState extends State<ReservasiServiceBooking> {
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 13),
                             child: Text(
-                              (dateTime.year < 2023)
-                                  ? "Pilih Tanggal/Select Date"
-                                  : '${dateTime.year}-${dateTime.month}-${dateTime.day}',
+                              '${dateTime.year}-${dateTime.month}-${dateTime.day}',
                               style: const TextStyle(fontSize: 16),
                             ),
                           ),
@@ -248,6 +259,8 @@ class _ReservasiServiceBookingState extends State<ReservasiServiceBooking> {
                     ),
                   ),
                   const SizedBox(height: 10),
+                  Text("Pilih Waktu/Select Time"),
+                  const SizedBox(height: 5),
                   InkWell(
                     onTap: () async {
                       final time = await pickerTime();
@@ -277,9 +290,7 @@ class _ReservasiServiceBookingState extends State<ReservasiServiceBooking> {
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 13),
                             child: Text(
-                              (dateTime.hour == 0)
-                                  ? "Pilih Waktu/Select Time"
-                                  : '$hours:$minutes',
+                              '$hours:$minutes',
                               style: const TextStyle(fontSize: 16),
                             ),
                           ),
@@ -313,7 +324,7 @@ class _ReservasiServiceBookingState extends State<ReservasiServiceBooking> {
                             userID != null &&
                             value_service_berkala != null &&
                             "${dateTime.year}-${dateTime.month}-${dateTime.day}" !=
-                                "2022-05-10" &&
+                                "2022-12-29" &&
                             "$hours:$minutes:00" != "00:00:00" &&
                             keluhanC.text != '') {
                           // POST KE API
@@ -324,85 +335,20 @@ class _ReservasiServiceBookingState extends State<ReservasiServiceBooking> {
                             "${dateTime.year}-${dateTime.month}-${dateTime.day}",
                             "$hours:$minutes:00",
                             keluhanC.text,
+                            context,
                           );
-
-                          showDialog(
-                            context: context,
-                            barrierColor: Colors.transparent,
-                            builder: (context) {
-                              Future.delayed(
-                                const Duration(seconds: 2),
-                                () {
-                                  Get.back();
-                                  Dialogs.materialDialog(
-                                      title:
-                                          "Apakah Anda Ingin Menambahkan Booking Lagi ?",
-                                      titleAlign: TextAlign.center,
-                                      color: Colors.white,
-                                      context: context,
-                                      actions: [
-                                        IconsOutlineButton(
-                                          onPressed: () {
-                                            Get.offAll(HomePage());
-                                          },
-                                          text: 'Tidak',
-                                          iconData: Icons.cancel,
-                                          textStyle:
-                                              TextStyle(color: Colors.grey),
-                                          iconColor: Colors.grey,
-                                        ),
-                                        IconsButton(
-                                          onPressed: () async {
-                                            Get.back();
-                                            value_service_berkala = null;
-                                          },
-                                          text: 'Iya',
-                                          iconData: Icons.done,
-                                          color: Colors.green,
-                                          textStyle:
-                                              TextStyle(color: Colors.white),
-                                          iconColor: Colors.white,
-                                        ),
-                                      ]);
-                                  setState(() {
-                                    isLoading2 = false;
-                                  });
-                                },
-                              );
-                              return AlertDialog(
-                                backgroundColor: Color(0x890F0F0F),
-                                actions: [
-                                  Column(
-                                    children: [
-                                      Container(
-                                        width: 270,
-                                        height: 50,
-                                        child: Lottie.asset(
-                                            "assets/lottie/success.json"),
-                                      ),
-                                      const SizedBox(height: 7),
-                                      const Text(
-                                        "Berhasil Booking Reservasi Kendaraan",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w500,
-                                          color: Color(0xFFDEDEDE),
-                                        ),
-                                      ),
-                                      const SizedBox(height: 10),
-                                    ],
-                                  )
-                                ],
-                              );
-                            },
-                          );
+                          setState(() {
+                            isLoading2 = false;
+                          });
                         } else {
                           SnackBarWidget()
                               .snackBarError("Semua Data Wajib Di Isi");
+                          setState(() {
+                            isLoading2 = false;
+                          });
                         }
                       },
-                      child: Text(isLoading2 ? 'Loading...' : 'Kirim'),
+                      child: isLoading2 ? Text("Loading...") : Text('Kirim'),
                       style: ButtonStyle(
                         overlayColor: MaterialStateProperty.all(Colors.red),
                         backgroundColor:

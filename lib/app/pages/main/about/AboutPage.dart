@@ -42,7 +42,7 @@ class _AboutPageState extends State<AboutPage> {
                 if (connectivityResult == ConnectivityResult.none) {
                   print("NO INTERNET");
                 } else {
-                  MapUtils.openMap(-7.941028, 113.809225);
+                  MapUtils.openMap(-0.515890, 117.106860);
                 }
               },
               child: Container(

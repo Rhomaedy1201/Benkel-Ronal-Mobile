@@ -143,7 +143,7 @@ class _MerkMobilPageState extends State<MerkMobilPage> {
                               }
                             },
                             child: const Text(
-                              'Tamabah Merk Mobil',
+                              'Tambah Merk Mobil',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 15,

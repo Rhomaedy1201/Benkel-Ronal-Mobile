@@ -86,10 +86,10 @@ class _RegisterPageState extends State<RegisterPage> {
             setState(() {
               isLoading = false;
             });
-            snackBarError(value.body['message']);
+            snackBarError("Ups terjadi kesalahan");
           }
 
-          print(value.body);
+          // print(value.body);
           // print(value.statusCode);
         });
       } else {
@@ -97,6 +97,9 @@ class _RegisterPageState extends State<RegisterPage> {
       }
     } else {
       snackBarError("Semua data harus di isi");
+      setState(() {
+        isLoading = false;
+      });
     }
   }
 
@@ -128,89 +131,94 @@ class _RegisterPageState extends State<RegisterPage> {
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-        child: Column(
+        child: ListView(
           children: [
-            const SizedBox(height: 10),
-            TextField(
-              controller: namaC,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'Nama Anda',
-                labelText: "Masukkan Nama Anda",
-              ),
-            ),
-            const SizedBox(height: 10),
-            TextField(
-              controller: no_hpC,
-              decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Nomor Telepon',
-                  labelText: "Masukkan Nomor Telepon",
-                  prefixText: "+62  "),
-              keyboardType: TextInputType.phone,
-            ),
-            const SizedBox(height: 10),
-            TextField(
-              controller: emailC,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'Email',
-                labelText: "Masukkan Email",
-              ),
-              keyboardType: TextInputType.emailAddress,
-            ),
-            const SizedBox(height: 10),
-            TextField(
-              controller: passwordC,
-              obscureText: true,
-              obscuringCharacter: "*",
-              autocorrect: false,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'Password',
-                labelText: "Masukkan Password",
-              ),
-            ),
-            const SizedBox(height: 15),
-            SizedBox(
-              height: 45,
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () async {
-                  final connectivityResult =
-                      await (Connectivity().checkConnectivity());
-                  if (connectivityResult == ConnectivityResult.none) {
-                    print("NO INTERNET");
-                  } else {
-                    setState(() {
-                      isLoading = true;
-                    });
-
-                    addUser(
-                      "${namaC.text}",
-                      "${no_hpC.text}",
-                      "${emailC.text}",
-                      "${passwordC.text}",
-                    );
-
-                    print(namaC.text);
-                    print(no_hpC.text);
-                    print(emailC.text);
-                    print(passwordC.text);
-                  }
-                },
-                child: Text(
-                  isLoading ? 'Loading...' : 'Register',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 15,
+            Column(
+              children: [
+                const SizedBox(height: 10),
+                TextField(
+                  controller: namaC,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'Nama Anda',
+                    labelText: "Masukkan Nama Anda",
                   ),
                 ),
-                style: ButtonStyle(
-                  overlayColor: MaterialStateProperty.all(Colors.red),
-                  backgroundColor: MaterialStateProperty.all(Colors.redAccent),
+                const SizedBox(height: 10),
+                TextField(
+                  controller: no_hpC,
+                  decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: 'Nomor Telepon',
+                      labelText: "Masukkan Nomor Telepon",
+                      prefixText: "+62  "),
+                  keyboardType: TextInputType.phone,
                 ),
-              ),
+                const SizedBox(height: 10),
+                TextField(
+                  controller: emailC,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'Email',
+                    labelText: "Masukkan Email",
+                  ),
+                  keyboardType: TextInputType.emailAddress,
+                ),
+                const SizedBox(height: 10),
+                TextField(
+                  controller: passwordC,
+                  obscureText: true,
+                  obscuringCharacter: "*",
+                  autocorrect: false,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'Password',
+                    labelText: "Masukkan Password",
+                  ),
+                ),
+                const SizedBox(height: 15),
+                SizedBox(
+                  height: 45,
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      final connectivityResult =
+                          await (Connectivity().checkConnectivity());
+                      if (connectivityResult == ConnectivityResult.none) {
+                        print("NO INTERNET");
+                      } else {
+                        setState(() {
+                          isLoading = true;
+                        });
+
+                        addUser(
+                          "${namaC.text}",
+                          "${no_hpC.text}",
+                          "${emailC.text}",
+                          "${passwordC.text}",
+                        );
+
+                        print(namaC.text);
+                        print(no_hpC.text);
+                        print(emailC.text);
+                        print(passwordC.text);
+                      }
+                    },
+                    child: Text(
+                      isLoading ? 'Loading...' : 'Register',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 15,
+                      ),
+                    ),
+                    style: ButtonStyle(
+                      overlayColor: MaterialStateProperty.all(Colors.red),
+                      backgroundColor:
+                          MaterialStateProperty.all(Colors.redAccent),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
